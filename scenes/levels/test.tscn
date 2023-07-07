@@ -1,3 +1,17 @@
-[gd_scene format=3 uid="uid://ciobpkuomuqno"]
+[gd_scene load_steps=4 format=3 uid="uid://ciobpkuomuqno"]
+
+[ext_resource type="TileSet" uid="uid://dqa2j1vinspyo" path="res://sprites/tileset.tres" id="1_oq0wp"]
+[ext_resource type="PackedScene" uid="uid://n7fdle1ife44" path="res://scenes/pieces/Piece.tscn" id="3_iu620"]
+[ext_resource type="Script" path="res://scripts/Board.gd" id="3_kg7xb"]
 
 [node name="Node2D" type="Node2D"]
+
+[node name="TileMap" type="TileMap" parent="."]
+tile_set = ExtResource("1_oq0wp")
+format = 2
+layer_0/tile_data = PackedInt32Array(0, 0, 12, 65536, 65536, 12, 1, 65536, 12, 65537, 0, 12, 2, 0, 12, 65538, 65536, 12, 3, 65536, 12, 65539, 0, 12, 131074, 0, 12, 196610, 65536, 12, 131075, 65536, 12, 196611, 0, 12, 131072, 0, 12, 196608, 65536, 12, 131073, 65536, 12, 196609, 0, 12)
+
+[node name="Board" type="Node2D" parent="." node_paths=PackedStringArray("Tilemap")]
+script = ExtResource("3_kg7xb")
+Piece = ExtResource("3_iu620")
+Tilemap = NodePath("../TileMap")
