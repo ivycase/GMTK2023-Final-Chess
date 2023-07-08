@@ -1,0 +1,48 @@
+[gd_scene load_steps=8 format=3 uid="uid://ciobpkuomuqno"]
+
+[ext_resource type="TileSet" uid="uid://dqa2j1vinspyo" path="res://sprites/tileset.tres" id="1_oq0wp"]
+[ext_resource type="PackedScene" uid="uid://n7fdle1ife44" path="res://scenes/pieces/Piece.tscn" id="3_iu620"]
+[ext_resource type="Script" path="res://scripts/Board.gd" id="3_kg7xb"]
+[ext_resource type="Texture2D" uid="uid://qmew3cjpnxdx" path="res://sprites/pieces/black_king.png" id="4_epfpc"]
+[ext_resource type="Texture2D" uid="uid://cefmo1o5xtoj7" path="res://sprites/pieces/white_king.png" id="5_oycru"]
+[ext_resource type="Texture2D" uid="uid://dt64hpe5avjxf" path="res://sprites/pieces/black_pawn.png" id="6_aajg5"]
+[ext_resource type="Texture2D" uid="uid://bi81xss44mxex" path="res://sprites/pieces/white_pawn.png" id="7_omgcf"]
+
+[node name="Node2D" type="Node2D"]
+
+[node name="TileMap" type="TileMap" parent="."]
+tile_set = ExtResource("1_oq0wp")
+format = 2
+layer_0/name = "Board"
+layer_0/tile_data = PackedInt32Array(0, 0, 12, 65536, 65536, 12, 1, 65536, 12, 65537, 0, 12, 2, 0, 12, 65538, 65536, 12, 3, 65536, 12, 65539, 0, 12, 131074, 0, 12, 196610, 65536, 12, 131075, 65536, 12, 196611, 0, 12, 131072, 0, 12, 196608, 65536, 12, 131073, 65536, 12, 196609, 0, 12)
+layer_1/name = "Indicator"
+layer_1/enabled = true
+layer_1/modulate = Color(1, 1, 1, 1)
+layer_1/y_sort_enabled = false
+layer_1/y_sort_origin = 0
+layer_1/z_index = 0
+layer_1/tile_data = PackedInt32Array()
+
+[node name="Board" type="Node2D" parent="." node_paths=PackedStringArray("Tilemap")]
+script = ExtResource("3_kg7xb")
+Piece = ExtResource("3_iu620")
+Tilemap = NodePath("../TileMap")
+
+[node name="Prototype" type="Node2D" parent="."]
+visible = false
+
+[node name="BlackKing" type="Sprite2D" parent="Prototype"]
+position = Vector2(112, 16)
+texture = ExtResource("4_epfpc")
+
+[node name="WhiteKing" type="Sprite2D" parent="Prototype"]
+position = Vector2(16, 112)
+texture = ExtResource("5_oycru")
+
+[node name="BlackPawn" type="Sprite2D" parent="Prototype"]
+position = Vector2(80, 16)
+texture = ExtResource("6_aajg5")
+
+[node name="WhitePawn" type="Sprite2D" parent="Prototype"]
+position = Vector2(48, 80)
+texture = ExtResource("7_omgcf")
