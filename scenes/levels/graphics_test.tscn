@@ -39,8 +39,8 @@ script = ExtResource("1_mwiro")
 
 [node name="Background" type="TextureRect" parent="UI"]
 material = SubResource("ShaderMaterial_l5ini")
-offset_right = 640.0
-offset_bottom = 384.0
+offset_right = 1280.0
+offset_bottom = 768.0
 scale = Vector2(0.75, 0.75)
 texture = ExtResource("1_snugr")
 stretch_mode = 1

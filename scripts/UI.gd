@@ -11,12 +11,11 @@ var opposite_direction = Vector2(-1, 0)
 var shift_interpolate = 0
 var speed = 0.1
 
-func bg_color_shift():
-	shifting = true
-	target = background_green if target == background_pink else background_pink
-	opposite_direction = -opposite_direction
-	shift_interpolate = 0
-
+func _ready():
+	randomize()
+	background.position.x -= background.size.x / randf_range(2, 5)
+	background.position.y -= background.size.y / randf_range(2, 5)
+	
 func _process(delta):
 	if shifting && shift_interpolate <= 1:
 		shift_interpolate += delta * speed
@@ -29,4 +28,10 @@ func _process(delta):
 		var new_direction = current_direction.lerp(opposite_direction, shift_interpolate)
 		background.material.set_shader_parameter("scroll_direction", new_direction)
 	
+
+func bg_color_shift():
+	shifting = true
+	target = background_green if target == background_pink else background_pink
+	opposite_direction = -opposite_direction
+	shift_interpolate = 0
 	
