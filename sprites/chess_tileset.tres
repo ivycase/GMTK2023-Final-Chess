@@ -1,0 +1,28 @@
+[gd_resource type="TileSet" load_steps=3 format=3 uid="uid://cgpoupdsra5vy"]
+
+[ext_resource type="Texture2D" uid="uid://c62wl1lvxwvb3" path="res://sprites/chess-tileset.png" id="1_gqdfm"]
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_4u2jv"]
+texture = ExtResource("1_gqdfm")
+0:3/0 = 0
+1:3/0 = 0
+2:3/0 = 0
+3:3/0 = 0
+5:3/0 = 0
+6:3/0 = 0
+0:4/0 = 0
+1:4/0 = 0
+2:4/0 = 0
+3:4/0 = 0
+0:5/0 = 0
+1:5/0 = 0
+2:5/0 = 0
+3:5/0 = 0
+0:6/0 = 0
+1:6/0 = 0
+2:6/0 = 0
+3:6/0 = 0
+0:7/0 = 0
+
+[resource]
+sources/0 = SubResource("TileSetAtlasSource_4u2jv")

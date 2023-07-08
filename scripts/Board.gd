@@ -42,7 +42,7 @@ func _input(_event):
 		var coords = Tilemap.local_to_map(mouse_pos)
 		#print("clicked tile: ", coords)
 		
-		if !(0 <= coords.x && coords.x < Board_Size.x) || !(0 <= coords.y && coords.y < Board_Size.y): # not inside board
+		if !is_in_board(coords): # not inside board
 			current_piece = null
 			set_highlight(false)
 			piece_deselect()
@@ -83,7 +83,20 @@ func remove_piece(tile):
 func destroy_tile(tile):
 	remove_piece(tile)
 	destroyed_matrix[tile.x][tile.y] = true
-	Tilemap.set_cell(1, tile, 0, Vector2i(0, 14))
+	
+	### Tilemap ###
+	
+	if is_in_board(tile + Vector2i(0, -1)): # if above tile is in board
+		Tilemap.set_cell(0, tile, 0, Vector2i(0, 5))
+	else:
+		Tilemap.erase_cell(0, tile)
+	
+	var below_tile = tile + Vector2i(0, 1)
+	if !is_in_board(below_tile) || destroyed_matrix[below_tile.x][below_tile.y]: # if below tile is out of board or destroyed (half-piece)
+		Tilemap.erase_cell(0, below_tile)
+	
+func is_in_board(coords):
+	return (0 <= coords.x && coords.x < Board_Size.x) && (0 <= coords.y && coords.y < Board_Size.y)
 			
 func move_current_piece(move):
 	if move in current_piece_moves:
@@ -112,7 +125,7 @@ func piece_deselect():
 	
 func set_highlight(do_highlight):
 	for tile in current_piece_moves:
-		if do_highlight: Tilemap.set_cell(1, tile, 0, Vector2i(10, 10))
+		if do_highlight: Tilemap.set_cell(1, tile, 0, Vector2i(5, 3))
 		else: Tilemap.erase_cell(1, tile)
 	
 ### GET LEGAL MOVES ###
@@ -148,7 +161,7 @@ func filter_invalid_moves(piece, moves, matrix=board_matrix, destroyed=destroyed
 	var filter = moves.duplicate()
 	
 	for move in moves:
-		if !(0 <= move.x && move.x < Board_Size.x) || !(0 <= move.y && move.y < Board_Size.y): filter.erase(move) # out of board
+		if !is_in_board(move): filter.erase(move) # out of board
 		elif matrix[move.x][move.y] != null && matrix[move.x][move.y].team == piece.team: filter.erase(move) # occupied by friendly piece
 		elif destroyed[move.x][move.y]: filter.erase(move) #tile is destroyed
 	
@@ -160,7 +173,7 @@ func get_sliding_moves(piece, matrix=board_matrix, destroyed=destroyed_matrix):
 			var i = 1
 			while(true):
 				var move = (direction * i) + piece.tile
-				if !(0 <= move.x && move.x < Board_Size.x) || !(0 <= move.y && move.y < Board_Size.y): break # out of board
+				if !is_in_board(move): break # out of board
 				elif matrix[move.x][move.y] != null && matrix[move.x][move.y].team == piece.team: break # occupied by friendly piece
 				elif destroyed[move.x][move.y]: break #tile is destroyed
 				elif matrix[move.x][move.y] != null && matrix[move.x][move.y].team != piece.team: # occupied by enemy piece
@@ -183,7 +196,7 @@ func get_pawn_valid_moves(piece, matrix=board_matrix, destroyed=destroyed_matrix
 	
 	var filter = captures.duplicate()
 	for move in captures:
-		if !(0 <= move.x && move.x < Board_Size.x) || !(0 <= move.y && move.y < Board_Size.y): filter.erase(move) # out of board
+		if !is_in_board(move): filter.erase(move) # out of board
 		elif matrix[move.x][move.y] == null || matrix[move.x][move.y].team == piece.team: filter.erase(move) # no enemy to capture
 	
 	var moves = []
@@ -192,7 +205,7 @@ func get_pawn_valid_moves(piece, matrix=board_matrix, destroyed=destroyed_matrix
 		
 	filter.append_array(moves)
 	for move in moves:
-		if !(0 <= move.x && move.x < Board_Size.x) || !(0 <= move.y && move.y < Board_Size.y): filter.erase(move) # out of board
+		if !is_in_board(move): filter.erase(move) # out of board
 		elif matrix[move.x][move.y] != null: filter.erase(move) # occupied by piece
 		elif destroyed[move.x][move.y]: filter.erase(move) #tile is destroyed
 	
