@@ -36,6 +36,8 @@ func get_pattern():
 	match type:
 		Global.Type.PAWN:
 			return get_pawn_pattern()
+		Global.Type.BISHOP:
+			return get_bishop_pattern()
 		Global.Type.KNIGHT:
 			return get_knight_pattern()
 		Global.Type.ROOK:
@@ -49,6 +51,9 @@ func get_pawn_pattern():
 			return [Vector2i(0, 1)]
 		Global.Team.PINK:
 			return [Vector2i(0, -1)]
+			
+func get_bishop_pattern():
+	return [Vector2i(1, 1),  Vector2i(-1, 1), Vector2i(1, -1),  Vector2i(-1, -1)]
 			
 func get_knight_pattern():
 	return [Vector2i(2, 1), Vector2i(1, 2), Vector2i(-1, 2), Vector2i(-2, 1),

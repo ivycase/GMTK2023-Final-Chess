@@ -26,9 +26,8 @@ func _ready():
 	
 	add_piece(Global.Type.KING, Global.Team.GREEN, Vector2i(3, 0))
 	add_piece(Global.Type.KING, Global.Team.PINK, Vector2i(0, 3))
-	add_piece(Global.Type.ROOK, Global.Team.PINK, Vector2i(1, 2))
-	add_piece(Global.Type.ROOK, Global.Team.GREEN, Vector2i(2, 3))
-	add_piece(Global.Type.ROOK, Global.Team.PINK, Vector2i(3, 2))
+	add_piece(Global.Type.BISHOP, Global.Team.PINK, Vector2i(3, 2))
+	add_piece(Global.Type.BISHOP, Global.Team.GREEN, Vector2i(0, 0))
 	#print("current board: ", board_matrix)
 		
 func _input(_event):
