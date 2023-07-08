@@ -42,6 +42,8 @@ func get_pattern():
 			return get_knight_pattern()
 		Global.Type.ROOK:
 			return get_rook_pattern()
+		Global.Type.QUEEN:
+			return get_king_pattern()
 		Global.Type.KING:
 			return get_king_pattern()
 			

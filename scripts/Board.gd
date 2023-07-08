@@ -26,8 +26,8 @@ func _ready():
 	
 	add_piece(Global.Type.KING, Global.Team.GREEN, Vector2i(3, 0))
 	add_piece(Global.Type.KING, Global.Team.PINK, Vector2i(0, 3))
-	add_piece(Global.Type.BISHOP, Global.Team.PINK, Vector2i(3, 2))
-	add_piece(Global.Type.BISHOP, Global.Team.GREEN, Vector2i(0, 0))
+	add_piece(Global.Type.QUEEN, Global.Team.PINK, Vector2i(3, 2))
+	add_piece(Global.Type.QUEEN, Global.Team.GREEN, Vector2i(0, 0))
 	#print("current board: ", board_matrix)
 		
 func _input(_event):
@@ -163,8 +163,7 @@ func get_sliding_moves(piece, matrix=board_matrix, destroyed=destroyed_matrix):
 				
 				moves.append(move)
 				i += 1
-	
-	print("rook moves: ", moves)
+				
 	return moves
 	
 func get_pawn_valid_moves(piece, matrix=board_matrix, destroyed=destroyed_matrix):
