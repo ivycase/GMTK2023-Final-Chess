@@ -1,0 +1,11 @@
+[gd_resource type="ShaderMaterial" load_steps=2 format=3 uid="uid://chngpu370nm4a"]
+
+[ext_resource type="Shader" path="res://shaders/swap_colors.gdshader" id="1_hmpn2"]
+
+[resource]
+shader = ExtResource("1_hmpn2")
+shader_parameter/swap_input = Color(0.858824, 0.352941, 0.729412, 1)
+shader_parameter/swap_input2 = Color(0.65098, 0.286275, 0.560784, 1)
+shader_parameter/swap_output = Color(0.462745, 0.831373, 0.560784, 1)
+shader_parameter/swap_output2 = Color(0.309804, 0.54902, 0.368627, 1)
+shader_parameter/do_swap = false

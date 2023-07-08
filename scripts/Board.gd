@@ -86,10 +86,11 @@ func destroy_tile(tile):
 	
 	### Tilemap ###
 	
-	if is_in_board(tile + Vector2i(0, -1)): # if above tile is in board
-		Tilemap.set_cell(0, tile, 0, Vector2i(0, 5))
-	else:
+	var above_tile = tile + Vector2i(0, -1)
+	if !is_in_board(above_tile) || destroyed_matrix[above_tile.x][above_tile.y]: # if above tile is out of board or destroyed (half-piece)
 		Tilemap.erase_cell(0, tile)
+	else:
+		Tilemap.set_cell(0, tile, 0, Vector2i(0, 5))
 	
 	var below_tile = tile + Vector2i(0, 1)
 	if !is_in_board(below_tile) || destroyed_matrix[below_tile.x][below_tile.y]: # if below tile is out of board or destroyed (half-piece)
@@ -110,6 +111,7 @@ func move_current_piece(move):
 		current_piece.set_tile(move, Tilemap.map_to_local(move))
 	
 		Global.switch_teams()
+		Tilemap.swap_colors()
 		print(Global.current_team, " turn!")
 		
 func piece_select(piece):
