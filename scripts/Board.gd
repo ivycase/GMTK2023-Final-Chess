@@ -26,8 +26,10 @@ func _ready():
 	
 	add_piece(Global.Type.KING, Global.Team.GREEN, Vector2i(3, 0))
 	add_piece(Global.Type.PAWN, Global.Team.GREEN, Vector2i(2, 0))
+	add_piece(Global.Type.KNIGHT, Global.Team.GREEN, Vector2i(1, 0))
 	add_piece(Global.Type.KING, Global.Team.PINK, Vector2i(0, 3))
 	add_piece(Global.Type.PAWN, Global.Team.PINK, Vector2i(1, 2))
+	add_piece(Global.Type.KNIGHT, Global.Team.PINK, Vector2i(2, 3))
 	#print("current board: ", board_matrix)
 		
 func _input(_event):
@@ -91,6 +93,7 @@ func move_current_piece(move):
 		current_piece.set_tile(move, Tilemap.map_to_local(move))
 	
 		Global.switch_teams()
+		print(Global.current_team, " turn!")
 		
 func piece_select(piece):
 	if !piece: return piece_deselect()

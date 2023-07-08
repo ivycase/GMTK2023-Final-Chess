@@ -53,7 +53,7 @@ func get_all_legal_moves(team, matrix=current_board.board_matrix, destroyed=curr
 	for piece in pieces:
 		moves.append_array(current_board.get_legal_moves(piece, matrix, destroyed))
 		
-	print("all enemy legal moves: ", moves)
+	#print("all enemy legal moves: ", moves)
 	return moves
 	
 	

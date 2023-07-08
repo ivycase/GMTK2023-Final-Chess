@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://ciobpkuomuqno"]
+[gd_scene load_steps=9 format=3 uid="uid://ciobpkuomuqno"]
 
 [ext_resource type="TileSet" uid="uid://dqa2j1vinspyo" path="res://sprites/tileset.tres" id="1_oq0wp"]
 [ext_resource type="PackedScene" uid="uid://n7fdle1ife44" path="res://scenes/pieces/Piece.tscn" id="3_iu620"]
@@ -7,6 +7,7 @@
 [ext_resource type="Texture2D" uid="uid://cefmo1o5xtoj7" path="res://sprites/pieces/white_king.png" id="5_oycru"]
 [ext_resource type="Texture2D" uid="uid://dt64hpe5avjxf" path="res://sprites/pieces/black_pawn.png" id="6_aajg5"]
 [ext_resource type="Texture2D" uid="uid://bi81xss44mxex" path="res://sprites/pieces/white_pawn.png" id="7_omgcf"]
+[ext_resource type="Texture2D" uid="uid://chtexosh1hxg0" path="res://sprites/pieces/white_knight.png" id="8_uu5xt"]
 
 [node name="Node2D" type="Node2D"]
 
@@ -30,6 +31,10 @@ Tilemap = NodePath("../TileMap")
 
 [node name="Prototype" type="Node2D" parent="."]
 visible = false
+
+[node name="WhiteKnight" type="Sprite2D" parent="Prototype"]
+position = Vector2(80, 112)
+texture = ExtResource("8_uu5xt")
 
 [node name="BlackKing" type="Sprite2D" parent="Prototype"]
 position = Vector2(112, 16)
