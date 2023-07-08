@@ -51,7 +51,8 @@ func get_all_legal_moves(team, matrix=current_board.board_matrix, destroyed=curr
 			pieces = pink_pieces
 			
 	for piece in pieces:
-		moves.append_array(current_board.get_legal_moves(piece, matrix, destroyed))
+		if matrix[piece.tile.x][piece.tile.y] == piece:
+			moves.append_array(current_board.get_legal_moves(piece, matrix, destroyed))
 		
 	#print("all enemy legal moves: ", moves)
 	return moves
