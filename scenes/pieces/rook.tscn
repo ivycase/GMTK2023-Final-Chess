@@ -1,0 +1,13 @@
+[gd_scene load_steps=3 format=3 uid="uid://d0a3tp88mmuqp"]
+
+[ext_resource type="Script" path="res://scripts/Piece.gd" id="1_licya"]
+[ext_resource type="Texture2D" uid="uid://dqk0surem65ls" path="res://sprites/pieces/black_rook.png" id="2_jmwrc"]
+
+[node name="Rook" type="Node2D"]
+position = Vector2(16, 16)
+script = ExtResource("1_licya")
+type = 3
+
+[node name="Sprite" type="Sprite2D" parent="."]
+scale = Vector2(1.25, 1.25)
+texture = ExtResource("2_jmwrc")

@@ -2,8 +2,9 @@ extends Node2D
 
 @export var Piece : PackedScene
 @export var Tilemap : TileMap
+@export var Prototype : Node2D
 
-var board_size = Vector2i(4, 4)
+var board_size = Vector2i(8, 8)
 var board_matrix = []
 var destroyed_matrix = []
 
@@ -23,11 +24,16 @@ func _ready():
 	for j in board_size.y:
 		board_matrix.append(board_row.duplicate())
 		destroyed_matrix.append(destroyed_row.duplicate())
-	
-	add_piece(Global.Type.KING, Global.Team.GREEN, Vector2i(3, 0))
-	add_piece(Global.Type.KING, Global.Team.PINK, Vector2i(0, 3))
-	add_piece(Global.Type.QUEEN, Global.Team.PINK, Vector2i(3, 2))
-	add_piece(Global.Type.QUEEN, Global.Team.GREEN, Vector2i(0, 0))
+		
+	for piece in Prototype.get_children():
+		Prototype.remove_child(piece)
+		add_child(piece)
+		Global.add_piece(piece, piece.team)
+		
+		piece.set_tile(Tilemap.local_to_map(piece.position), piece.position)
+		board_matrix[piece.tile.x][piece.tile.y] = piece
+		
+		
 	#print("current board: ", board_matrix)
 		
 func _input(_event):
@@ -177,7 +183,8 @@ func get_pawn_valid_moves(piece, matrix=board_matrix, destroyed=destroyed_matrix
 	
 	var filter = captures.duplicate()
 	for move in captures:
-		if matrix[move.x][move.y] == null || matrix[move.x][move.y].team == piece.team: filter.erase(move)
+		if !(0 <= move.x && move.x < board_size.x) || !(0 <= move.y && move.y < board_size.y): filter.erase(move) # out of board
+		elif matrix[move.x][move.y] == null || matrix[move.x][move.y].team == piece.team: filter.erase(move) # no enemy to capture
 	
 	var moves = []
 	for move in piece.get_pattern():

@@ -14,8 +14,8 @@ extends Node2D
 							 preload("res://sprites/pieces/white_queen.png"),
 							 preload("res://sprites/pieces/white_king.png")]
 
-var type = Global.Type.PAWN
-var team = Global.Team.GREEN
+@export var type = Global.Type.PAWN
+@export var team = Global.Team.GREEN
 var tile = Vector2i()
 var sliding = false
 

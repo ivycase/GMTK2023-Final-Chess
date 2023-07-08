@@ -1,0 +1,13 @@
+[gd_scene load_steps=3 format=3 uid="uid://bk1avewjkxkld"]
+
+[ext_resource type="Script" path="res://scripts/Piece.gd" id="1_hbt43"]
+[ext_resource type="Texture2D" uid="uid://cuxkophby1hti" path="res://sprites/pieces/black_bishop.png" id="2_ews12"]
+
+[node name="Bishop" type="Node2D"]
+position = Vector2(80, 16)
+script = ExtResource("1_hbt43")
+type = 2
+
+[node name="Sprite" type="Sprite2D" parent="."]
+scale = Vector2(1.25, 1.25)
+texture = ExtResource("2_ews12")

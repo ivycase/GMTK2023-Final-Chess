@@ -1,11 +1,11 @@
-[gd_scene load_steps=3 format=3 uid="uid://n7fdle1ife44"]
+[gd_scene load_steps=3 format=3 uid="uid://b7kjbllnicsxh"]
 
-[ext_resource type="Texture2D" uid="uid://cfm1vu074abfa" path="res://icon.svg" id="1_ir8x8"]
 [ext_resource type="Script" path="res://scripts/Piece.gd" id="1_jtnu7"]
+[ext_resource type="Texture2D" uid="uid://dt64hpe5avjxf" path="res://sprites/pieces/black_pawn.png" id="2_dnnr1"]
 
 [node name="Piece" type="Node2D"]
 script = ExtResource("1_jtnu7")
 
 [node name="Sprite" type="Sprite2D" parent="."]
 scale = Vector2(1.25, 1.25)
-texture = ExtResource("1_ir8x8")
+texture = ExtResource("2_dnnr1")
