@@ -3,8 +3,8 @@ extends Node2D
 @export var Piece : PackedScene
 @export var Tilemap : TileMap
 @export var Prototype : Node2D
+@export var Board_Size : Vector2i
 
-var board_size = Vector2i(8, 8)
 var board_matrix = []
 var destroyed_matrix = []
 
@@ -18,10 +18,10 @@ func _ready():
 	
 	var board_row = []
 	var destroyed_row = []
-	for i in board_size.x: 
+	for i in Board_Size.x: 
 		board_row.append(null)
 		destroyed_row.append(false)
-	for j in board_size.y:
+	for j in Board_Size.y:
 		board_matrix.append(board_row.duplicate())
 		destroyed_matrix.append(destroyed_row.duplicate())
 		
@@ -42,7 +42,7 @@ func _input(_event):
 		var coords = Tilemap.local_to_map(mouse_pos)
 		#print("clicked tile: ", coords)
 		
-		if !(0 <= coords.x && coords.x < board_size.x) || !(0 <= coords.y && coords.y < board_size.y): # not inside board
+		if !(0 <= coords.x && coords.x < Board_Size.x) || !(0 <= coords.y && coords.y < Board_Size.y): # not inside board
 			current_piece = null
 			set_highlight(false)
 			piece_deselect()
@@ -148,7 +148,7 @@ func filter_invalid_moves(piece, moves, matrix=board_matrix, destroyed=destroyed
 	var filter = moves.duplicate()
 	
 	for move in moves:
-		if !(0 <= move.x && move.x < board_size.x) || !(0 <= move.y && move.y < board_size.y): filter.erase(move) # out of board
+		if !(0 <= move.x && move.x < Board_Size.x) || !(0 <= move.y && move.y < Board_Size.y): filter.erase(move) # out of board
 		elif matrix[move.x][move.y] != null && matrix[move.x][move.y].team == piece.team: filter.erase(move) # occupied by friendly piece
 		elif destroyed[move.x][move.y]: filter.erase(move) #tile is destroyed
 	
@@ -160,7 +160,7 @@ func get_sliding_moves(piece, matrix=board_matrix, destroyed=destroyed_matrix):
 			var i = 1
 			while(true):
 				var move = (direction * i) + piece.tile
-				if !(0 <= move.x && move.x < board_size.x) || !(0 <= move.y && move.y < board_size.y): break # out of board
+				if !(0 <= move.x && move.x < Board_Size.x) || !(0 <= move.y && move.y < Board_Size.y): break # out of board
 				elif matrix[move.x][move.y] != null && matrix[move.x][move.y].team == piece.team: break # occupied by friendly piece
 				elif destroyed[move.x][move.y]: break #tile is destroyed
 				elif matrix[move.x][move.y] != null && matrix[move.x][move.y].team != piece.team: # occupied by enemy piece
@@ -183,7 +183,7 @@ func get_pawn_valid_moves(piece, matrix=board_matrix, destroyed=destroyed_matrix
 	
 	var filter = captures.duplicate()
 	for move in captures:
-		if !(0 <= move.x && move.x < board_size.x) || !(0 <= move.y && move.y < board_size.y): filter.erase(move) # out of board
+		if !(0 <= move.x && move.x < Board_Size.x) || !(0 <= move.y && move.y < Board_Size.y): filter.erase(move) # out of board
 		elif matrix[move.x][move.y] == null || matrix[move.x][move.y].team == piece.team: filter.erase(move) # no enemy to capture
 	
 	var moves = []
@@ -192,7 +192,7 @@ func get_pawn_valid_moves(piece, matrix=board_matrix, destroyed=destroyed_matrix
 		
 	filter.append_array(moves)
 	for move in moves:
-		if !(0 <= move.x && move.x < board_size.x) || !(0 <= move.y && move.y < board_size.y): filter.erase(move) # out of board
+		if !(0 <= move.x && move.x < Board_Size.x) || !(0 <= move.y && move.y < Board_Size.y): filter.erase(move) # out of board
 		elif matrix[move.x][move.y] != null: filter.erase(move) # occupied by piece
 		elif destroyed[move.x][move.y]: filter.erase(move) #tile is destroyed
 	

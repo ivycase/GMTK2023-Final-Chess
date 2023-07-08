@@ -4,7 +4,6 @@
 [ext_resource type="Texture2D" uid="uid://cuxkophby1hti" path="res://sprites/pieces/black_bishop.png" id="2_ews12"]
 
 [node name="Bishop" type="Node2D"]
-position = Vector2(80, 16)
 script = ExtResource("1_hbt43")
 type = 2
 

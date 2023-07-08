@@ -4,7 +4,6 @@
 [ext_resource type="Texture2D" uid="uid://dqk0surem65ls" path="res://sprites/pieces/black_rook.png" id="2_jmwrc"]
 
 [node name="Rook" type="Node2D"]
-position = Vector2(16, 16)
 script = ExtResource("1_licya")
 type = 3
 

@@ -1,0 +1,13 @@
+[gd_scene load_steps=3 format=3 uid="uid://3dkqh2dt5mjs"]
+
+[ext_resource type="Script" path="res://scripts/Piece.gd" id="1_v6fop"]
+[ext_resource type="Texture2D" uid="uid://cui01ona6r1h4" path="res://sprites/pieces/white_bishop.png" id="2_hlagv"]
+
+[node name="Bishop" type="Node2D"]
+script = ExtResource("1_v6fop")
+type = 2
+team = 1
+
+[node name="Sprite" type="Sprite2D" parent="."]
+scale = Vector2(1.25, 1.25)
+texture = ExtResource("2_hlagv")

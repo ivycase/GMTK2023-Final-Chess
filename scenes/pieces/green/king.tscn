@@ -4,7 +4,6 @@
 [ext_resource type="Texture2D" uid="uid://qmew3cjpnxdx" path="res://sprites/pieces/black_king.png" id="2_dxf0i"]
 
 [node name="King" type="Node2D"]
-position = Vector2(144, 16)
 script = ExtResource("1_x1v0e")
 type = 5
 
