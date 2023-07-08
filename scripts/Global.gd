@@ -1,6 +1,6 @@
 extends Node
 
-enum Type {PAWN, KNIGHT, BISHOP, ROOK, QUEEN, KING}
+enum Type {PAWN, KNIGHT, BISHOP, ROOK, QUEEN, KING, HOLE}
 enum Team {GREEN, PINK}
 
 var current_board = null

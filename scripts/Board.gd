@@ -26,12 +26,18 @@ func _ready():
 		destroyed_matrix.append(destroyed_row.duplicate())
 		
 	for piece in Prototype.get_children():
+		var tile = Tilemap.local_to_map(piece.position)
 		Prototype.remove_child(piece)
+		
+		if piece.type == Global.Type.HOLE:
+			destroyed_matrix[tile.x][tile.y] = true
+			continue
+		
 		add_child(piece)
 		Global.add_piece(piece, piece.team)
 		
-		piece.set_tile(Tilemap.local_to_map(piece.position), piece.position)
-		board_matrix[piece.tile.x][piece.tile.y] = piece
+		piece.set_tile(tile, piece.position)
+		board_matrix[tile.x][tile.y] = piece
 		
 		
 	#print("current board: ", board_matrix)

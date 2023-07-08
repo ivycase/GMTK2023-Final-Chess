@@ -20,6 +20,8 @@ var tile = Vector2i()
 var sliding = false
 
 func _ready():
+	if type == Global.Type.HOLE: return
+	
 	match team:
 		Global.Team.GREEN:
 			sprite.texture = green_pieces[type]
