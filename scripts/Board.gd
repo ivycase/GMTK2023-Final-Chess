@@ -23,7 +23,9 @@ func _ready():
 		destroyed_matrix.append(destroyed_row.duplicate())
 	
 	add_piece(Global.Type.KING, Global.Team.GREEN, Vector2i(3, 0))
-	add_piece(Global.Type.KING, Global.Team.PURPLE, Vector2i(0, 3))
+	add_piece(Global.Type.PAWN, Global.Team.GREEN, Vector2i(2, 0))
+	add_piece(Global.Type.KING, Global.Team.PINK, Vector2i(0, 3))
+	add_piece(Global.Type.PAWN, Global.Team.PINK, Vector2i(1, 2))
 	print("current board: ", board_matrix)
 		
 func _input(_event):
@@ -52,11 +54,12 @@ func _input(_event):
 			
 func add_piece(type, team, tile):
 	var new_piece = Piece.instantiate()
-	add_child(new_piece)
 	new_piece.type = type
 	new_piece.team = team
 	new_piece.set_tile(tile, Tilemap.map_to_local(tile))
 	board_matrix[tile.x][tile.y] = new_piece
+	add_child(new_piece)
+	Global.add_piece(new_piece, team)
 	
 func remove_piece(tile):
 	var piece = board_matrix[tile.x][tile.y]
@@ -110,12 +113,31 @@ func filter_invalid_moves(piece, moves):
 		elif destroyed_matrix[move.x][move.y]: filter.erase(move) #tile is destroyed
 	
 	return filter
+	
+func get_pawn_captures(piece):
+	var captures
+	match piece.team:
+		Global.Team.GREEN:
+			captures = [Vector2i(1, 1) + piece.tile, Vector2i(-1, 1) + piece.tile]
+		Global.Team.PINK:
+			captures = [Vector2i(1, -1) + piece.tile, Vector2i(-1, -1) + piece.tile]
+	
+	
+	var filter = captures.duplicate()
+	for move in captures:
+		if board_matrix[move.x][move.y] == null || board_matrix[move.x][move.y].team == piece.team: filter.erase(move)
+	
+	return filter
 
 func legal_moves(piece):
 	var moves = []
+	if piece.type == Global.Type.PAWN:
+		moves.append_array(get_pawn_captures(piece))
 	
 	for move in piece.get_pattern():
 		moves.append(move + piece.tile)
+	
+	print(moves)
 		
 	return filter_invalid_moves(piece, moves)
 	
