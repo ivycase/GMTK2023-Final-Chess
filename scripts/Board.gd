@@ -25,11 +25,10 @@ func _ready():
 		destroyed_matrix.append(destroyed_row.duplicate())
 	
 	add_piece(Global.Type.KING, Global.Team.GREEN, Vector2i(3, 0))
-	add_piece(Global.Type.PAWN, Global.Team.GREEN, Vector2i(2, 0))
-	add_piece(Global.Type.KNIGHT, Global.Team.GREEN, Vector2i(1, 0))
 	add_piece(Global.Type.KING, Global.Team.PINK, Vector2i(0, 3))
-	add_piece(Global.Type.PAWN, Global.Team.PINK, Vector2i(1, 2))
-	add_piece(Global.Type.KNIGHT, Global.Team.PINK, Vector2i(2, 3))
+	add_piece(Global.Type.ROOK, Global.Team.PINK, Vector2i(1, 2))
+	add_piece(Global.Type.ROOK, Global.Team.GREEN, Vector2i(2, 3))
+	add_piece(Global.Type.ROOK, Global.Team.PINK, Vector2i(3, 2))
 	#print("current board: ", board_matrix)
 		
 func _input(_event):
@@ -125,9 +124,9 @@ func filter_in_check_moves(piece, moves):
 	
 	for move in moves:
 		var test_destroyed = destroyed_matrix.duplicate(true)
-		for other_move in moves:
-			if other_move != move: 
-				test_destroyed[other_move.x][other_move.y] = true
+		#for other_move in moves:
+		#	if other_move != move: 
+		#		test_destroyed[other_move.x][other_move.y] = true
 		
 		var test_matrix = board_matrix.duplicate(true)
 		test_matrix[piece.tile.x][piece.tile.y] = null
@@ -149,6 +148,25 @@ func filter_invalid_moves(piece, moves, matrix=board_matrix, destroyed=destroyed
 		elif destroyed[move.x][move.y]: filter.erase(move) #tile is destroyed
 	
 	return filter
+	
+func get_sliding_moves(piece, matrix=board_matrix, destroyed=destroyed_matrix):
+	var moves = []
+	for direction in piece.get_pattern():
+			var i = 1
+			while(true):
+				var move = (direction * i) + piece.tile
+				if !(0 <= move.x && move.x < board_size.x) || !(0 <= move.y && move.y < board_size.y): break # out of board
+				elif matrix[move.x][move.y] != null && matrix[move.x][move.y].team == piece.team: break # occupied by friendly piece
+				elif destroyed[move.x][move.y]: break #tile is destroyed
+				elif matrix[move.x][move.y] != null && matrix[move.x][move.y].team != piece.team: # occupied by enemy piece
+					moves.append(move)
+					break
+				
+				moves.append(move)
+				i += 1
+	
+	print("rook moves: ", moves)
+	return moves
 	
 func get_pawn_valid_moves(piece, matrix=board_matrix, destroyed=destroyed_matrix):
 	var captures
@@ -180,8 +198,11 @@ func get_legal_moves(piece, matrix=board_matrix, destroyed=destroyed_matrix):
 	if piece.type == Global.Type.PAWN:
 		return get_pawn_valid_moves(piece, matrix)
 	
-	for move in piece.get_pattern():
-		moves.append(move + piece.tile)
+	if piece.sliding:
+		moves = get_sliding_moves(piece, matrix, destroyed)
+	else:
+		for move in piece.get_pattern():
+			moves.append(move + piece.tile)
 		
 	return filter_invalid_moves(piece, moves, matrix, destroyed)
 	

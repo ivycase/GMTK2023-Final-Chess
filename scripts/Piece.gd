@@ -17,6 +17,7 @@ extends Node2D
 var type = Global.Type.PAWN
 var team = Global.Team.GREEN
 var tile = Vector2i()
+var sliding = false
 
 func _ready():
 	match team:
@@ -24,6 +25,8 @@ func _ready():
 			sprite.texture = green_pieces[type]
 		Global.Team.PINK:
 			sprite.texture = pink_pieces[type]
+			
+	sliding = (type == Global.Type.BISHOP || type == Global.Type.ROOK || type == Global.Type.QUEEN)
 
 func set_tile(tile_coords, pos_coords):
 	tile = tile_coords
@@ -35,6 +38,8 @@ func get_pattern():
 			return get_pawn_pattern()
 		Global.Type.KNIGHT:
 			return get_knight_pattern()
+		Global.Type.ROOK:
+			return get_rook_pattern()
 		Global.Type.KING:
 			return get_king_pattern()
 			
@@ -48,6 +53,9 @@ func get_pawn_pattern():
 func get_knight_pattern():
 	return [Vector2i(2, 1), Vector2i(1, 2), Vector2i(-1, 2), Vector2i(-2, 1),
 			Vector2i(2, -1), Vector2i(1, -2), Vector2i(-1, -2), Vector2i(-2, -1)]
+			
+func get_rook_pattern():
+	return [Vector2i(0, 1), Vector2i(1, 0), Vector2i(-1, 0), Vector2i(0, -1)]
 
 func get_king_pattern():
 	return [Vector2i(1, 1),   Vector2i(0, 1), Vector2i(-1, 1),
