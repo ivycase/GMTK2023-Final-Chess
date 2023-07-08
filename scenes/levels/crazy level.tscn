@@ -1,0 +1,53 @@
+[gd_scene load_steps=9 format=3 uid="uid://br1jac3a1o5cu"]
+
+[ext_resource type="Script" path="res://scripts/Board.gd" id="1_nj52b"]
+[ext_resource type="PackedScene" uid="uid://b7kjbllnicsxh" path="res://scenes/pieces/Piece.tscn" id="2_bvu66"]
+[ext_resource type="TileSet" uid="uid://dqa2j1vinspyo" path="res://sprites/tileset.tres" id="3_c44an"]
+[ext_resource type="PackedScene" uid="uid://df55k5fv1rde4" path="res://scenes/pieces/green/king.tscn" id="4_sxjcf"]
+[ext_resource type="PackedScene" uid="uid://1nhckci2d4ta" path="res://scenes/pieces/pink/pawn.tscn" id="5_roy4q"]
+[ext_resource type="PackedScene" uid="uid://5tbrxlda5kan" path="res://scenes/pieces/green/pawn.tscn" id="6_56ioy"]
+[ext_resource type="PackedScene" uid="uid://bbrrv357hyfoa" path="res://scenes/pieces/pink/king.tscn" id="6_xeupm"]
+[ext_resource type="PackedScene" uid="uid://bgr8jc1d2nxi3" path="res://scenes/pieces/green/knight.tscn" id="8_maqsn"]
+
+[node name="Level" type="Node2D"]
+position = Vector2(96, 32)
+
+[node name="Board" type="Node2D" parent="." node_paths=PackedStringArray("Tilemap", "Prototype")]
+script = ExtResource("1_nj52b")
+Piece = ExtResource("2_bvu66")
+Tilemap = NodePath("TileMap")
+Prototype = NodePath("../Prototype")
+Board_Size = Vector2i(4, 4)
+
+[node name="TileMap" type="TileMap" parent="Board"]
+tile_set = ExtResource("3_c44an")
+format = 2
+layer_0/name = "Board"
+layer_0/tile_data = PackedInt32Array(131072, 0, 12, 131073, 65536, 12, 196609, 0, 12, 196608, 65536, 12, 65536, 65536, 12, 1, 65536, 12, 65537, 0, 12, 2, 0, 12, 65538, 65536, 12, 131074, 0, 12, 3, 65536, 12, 65539, 0, 12)
+layer_1/name = "Indicator"
+layer_1/enabled = true
+layer_1/modulate = Color(1, 1, 1, 1)
+layer_1/y_sort_enabled = false
+layer_1/y_sort_origin = 0
+layer_1/z_index = 0
+layer_1/tile_data = PackedInt32Array()
+
+[node name="Prototype" type="Node2D" parent="."]
+
+[node name="Pawn2" parent="Prototype" instance=ExtResource("5_roy4q")]
+position = Vector2(112, 48)
+
+[node name="Pawn4" parent="Prototype" instance=ExtResource("5_roy4q")]
+position = Vector2(48, 112)
+
+[node name="Pawn3" parent="Prototype" instance=ExtResource("6_56ioy")]
+position = Vector2(80, 80)
+
+[node name="Knight" parent="Prototype" instance=ExtResource("8_maqsn")]
+position = Vector2(48, 16)
+
+[node name="King" parent="Prototype" instance=ExtResource("6_xeupm")]
+position = Vector2(16, 112)
+
+[node name="King2" parent="Prototype" instance=ExtResource("4_sxjcf")]
+position = Vector2(16, 48)

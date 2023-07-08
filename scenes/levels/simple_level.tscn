@@ -1,0 +1,46 @@
+[gd_scene load_steps=8 format=3 uid="uid://bogvc33hi3jl8"]
+
+[ext_resource type="Script" path="res://scripts/Board.gd" id="1_4mkpb"]
+[ext_resource type="PackedScene" uid="uid://b7kjbllnicsxh" path="res://scenes/pieces/Piece.tscn" id="2_tb4ws"]
+[ext_resource type="TileSet" uid="uid://dqa2j1vinspyo" path="res://sprites/tileset.tres" id="3_y3x1v"]
+[ext_resource type="PackedScene" uid="uid://df55k5fv1rde4" path="res://scenes/pieces/green/king.tscn" id="4_2b242"]
+[ext_resource type="PackedScene" uid="uid://bbrrv357hyfoa" path="res://scenes/pieces/pink/king.tscn" id="6_0qmed"]
+[ext_resource type="PackedScene" uid="uid://bgr8jc1d2nxi3" path="res://scenes/pieces/green/knight.tscn" id="6_yppt5"]
+[ext_resource type="PackedScene" uid="uid://5tbrxlda5kan" path="res://scenes/pieces/green/pawn.tscn" id="7_y3xoe"]
+
+[node name="Level" type="Node2D"]
+position = Vector2(112, 48)
+
+[node name="Board" type="Node2D" parent="." node_paths=PackedStringArray("Tilemap", "Prototype")]
+script = ExtResource("1_4mkpb")
+Piece = ExtResource("2_tb4ws")
+Tilemap = NodePath("TileMap")
+Prototype = NodePath("../Prototype")
+Board_Size = Vector2i(3, 3)
+
+[node name="TileMap" type="TileMap" parent="Board"]
+tile_set = ExtResource("3_y3x1v")
+format = 2
+layer_0/name = "Board"
+layer_0/tile_data = PackedInt32Array(0, 0, 12, 131074, 0, 12, 2, 0, 12, 131072, 0, 12, 1, 65536, 12, 65536, 65536, 12, 131073, 65536, 12, 65538, 65536, 12)
+layer_1/name = "Indicator"
+layer_1/enabled = true
+layer_1/modulate = Color(1, 1, 1, 1)
+layer_1/y_sort_enabled = false
+layer_1/y_sort_origin = 0
+layer_1/z_index = 0
+layer_1/tile_data = PackedInt32Array()
+
+[node name="Prototype" type="Node2D" parent="."]
+
+[node name="Knight" parent="Prototype" instance=ExtResource("6_yppt5")]
+position = Vector2(16, 80)
+
+[node name="Pawn" parent="Prototype" instance=ExtResource("7_y3xoe")]
+position = Vector2(80, 16)
+
+[node name="King" parent="Prototype" instance=ExtResource("4_2b242")]
+position = Vector2(16, 16)
+
+[node name="King2" parent="Prototype" instance=ExtResource("6_0qmed")]
+position = Vector2(80, 80)

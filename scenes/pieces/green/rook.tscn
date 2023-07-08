@@ -8,5 +8,4 @@ script = ExtResource("1_licya")
 type = 3
 
 [node name="Sprite" type="Sprite2D" parent="."]
-scale = Vector2(1.25, 1.25)
 texture = ExtResource("2_jmwrc")
