@@ -1,11 +1,11 @@
 [gd_scene load_steps=3 format=3 uid="uid://1nhckci2d4ta"]
 
 [ext_resource type="Script" path="res://scripts/Piece.gd" id="1_tsgel"]
-[ext_resource type="Texture2D" uid="uid://bi81xss44mxex" path="res://sprites/pieces/white_pawn.png" id="2_tcfq2"]
+[ext_resource type="Texture2D" uid="uid://dxonnc75dj4x6" path="res://sprites/pieces/pink/pawn.png" id="2_ne71n"]
 
 [node name="Pawn" type="Node2D"]
 script = ExtResource("1_tsgel")
 team = 1
 
 [node name="Sprite" type="Sprite2D" parent="."]
-texture = ExtResource("2_tcfq2")
+texture = ExtResource("2_ne71n")

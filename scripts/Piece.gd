@@ -1,23 +1,24 @@
 extends Node2D
 
 @onready var sprite = get_node("Sprite")
-@onready var green_pieces = [preload("res://sprites/pieces/black_pawn.png"), 
+@onready var green_pieces = [preload("res://sprites/pieces/green/pawn.png"), 
 							 preload("res://sprites/pieces/black_knight.png"), 
 							 preload("res://sprites/pieces/black_bishop.png"),
 							 preload("res://sprites/pieces/black_rook.png"),
 							 preload("res://sprites/pieces/black_queen.png"),
-							 preload("res://sprites/pieces/black_king.png")]
-@onready var pink_pieces = [preload("res://sprites/pieces/white_pawn.png"), 
+							 preload("res://sprites/pieces/green/king.png")]
+@onready var pink_pieces = [preload("res://sprites/pieces/pink/pawn.png"), 
 							 preload("res://sprites/pieces/white_knight.png"), 
 							 preload("res://sprites/pieces/white_bishop.png"),
 							 preload("res://sprites/pieces/white_rook.png"),
 							 preload("res://sprites/pieces/white_queen.png"),
-							 preload("res://sprites/pieces/white_king.png")]
+							 preload("res://sprites/pieces/pink/king.png")]
 
 @export var type = Global.Type.PAWN
 @export var team = Global.Team.GREEN
 var tile = Vector2i()
 var sliding = false
+var offset = Vector2(0, -2)
 
 func _ready():
 	if type == Global.Type.HOLE: return
@@ -32,7 +33,7 @@ func _ready():
 
 func set_tile(tile_coords, pos_coords):
 	tile = tile_coords
-	position = pos_coords
+	position = pos_coords + offset
 
 func get_pattern():
 	match type:

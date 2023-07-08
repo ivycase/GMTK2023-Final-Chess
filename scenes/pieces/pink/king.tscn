@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://bbrrv357hyfoa"]
 
 [ext_resource type="Script" path="res://scripts/Piece.gd" id="1_x1v0e"]
-[ext_resource type="Texture2D" uid="uid://cefmo1o5xtoj7" path="res://sprites/pieces/white_king.png" id="2_lkrre"]
+[ext_resource type="Texture2D" uid="uid://bbyu4nk8rmfm4" path="res://sprites/pieces/pink/king.png" id="2_qk8ob"]
 
 [node name="King" type="Node2D"]
 script = ExtResource("1_x1v0e")
@@ -9,4 +9,4 @@ type = 5
 team = 1
 
 [node name="Sprite" type="Sprite2D" parent="."]
-texture = ExtResource("2_lkrre")
+texture = ExtResource("2_qk8ob")

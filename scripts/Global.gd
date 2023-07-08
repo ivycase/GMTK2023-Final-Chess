@@ -7,6 +7,10 @@ var current_board = null
 var current_team = Team.PINK
 var green_pieces = []
 var pink_pieces = []
+var UI = null
+
+func _ready():
+	UI = get_node("/root/Level/UI")
 
 func add_piece(piece, team):
 	match team:
@@ -29,6 +33,7 @@ func check_win():
 
 func switch_teams():
 	current_team = get_next_team(current_team)
+	UI.bg_color_shift()
 
 func get_current_team():
 	return current_team

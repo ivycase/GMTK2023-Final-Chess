@@ -1,5 +1,8 @@
-[gd_scene load_steps=9 format=3 uid="uid://bnnflxkdui5fd"]
+[gd_scene load_steps=13 format=3 uid="uid://bnnflxkdui5fd"]
 
+[ext_resource type="Script" path="res://scripts/UI.gd" id="1_mwiro"]
+[ext_resource type="Shader" path="res://shaders/wobble.gdshader" id="1_qwb4f"]
+[ext_resource type="Texture2D" uid="uid://dhe2mg2tai2xk" path="res://sprites/chess-background.png" id="1_snugr"]
 [ext_resource type="Script" path="res://scripts/Board.gd" id="2_cvrpm"]
 [ext_resource type="TileSet" uid="uid://cgpoupdsra5vy" path="res://sprites/chess_tileset.tres" id="3_786fv"]
 [ext_resource type="PackedScene" uid="uid://b7kjbllnicsxh" path="res://scenes/pieces/Piece.tscn" id="3_l2ttq"]
@@ -9,8 +12,38 @@
 [ext_resource type="Script" path="res://scripts/BoardTiles.gd" id="5_lhdtl"]
 [ext_resource type="PackedScene" uid="uid://bbrrv357hyfoa" path="res://scenes/pieces/pink/king.tscn" id="6_45w8y"]
 
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_l5ini"]
+shader = ExtResource("1_qwb4f")
+shader_parameter/amplitude = 0.009
+shader_parameter/frequency = 20.0
+shader_parameter/speed = 1.0
+shader_parameter/amplitude_vertical = 0.0
+shader_parameter/frequency_vertical = 0.0
+shader_parameter/speed_vertical = 0.0
+shader_parameter/scroll_direction = Vector2(-1, 0)
+shader_parameter/scrolling_speed = 0.05
+shader_parameter/color_shift = Color(0.745098, 0.505882, 0.890196, 1)
+shader_parameter/shift_amount = 0.5
+
 [node name="Level" type="Node2D"]
 position = Vector2(72, 64)
+
+[node name="UI" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_left = -72.0
+offset_top = -64.0
+offset_right = -32.0
+offset_bottom = -24.0
+script = ExtResource("1_mwiro")
+
+[node name="Background" type="TextureRect" parent="UI"]
+material = SubResource("ShaderMaterial_l5ini")
+offset_right = 640.0
+offset_bottom = 384.0
+scale = Vector2(0.75, 0.75)
+texture = ExtResource("1_snugr")
+stretch_mode = 1
 
 [node name="Board" type="Node2D" parent="." node_paths=PackedStringArray("Tilemap", "Prototype")]
 script = ExtResource("2_cvrpm")
