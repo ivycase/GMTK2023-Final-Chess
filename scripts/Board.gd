@@ -22,21 +22,24 @@ func _ready():
 	print("current board: ", board_matrix)
 		
 func _input(_event):
-	if Input.is_action_just_pressed("click"):
+	if Input.is_action_just_released("click"):
 		var mouse_pos = get_local_mouse_position()
 		var coords = Tilemap.local_to_map(mouse_pos)
 		print("clicked tile: ", coords)
 		
 		if !(0 <= coords.x && coords.x < board_size.x) || !(0 <= coords.y && coords.y < board_size.y): # not inside board
 			current_piece = null
-			select_piece(null)
+			set_highlight(false)
+			piece_deselect()
 			return
 			
 		if current_piece:
+			set_highlight(false)
 			move_current_piece(coords)
-			select_piece(null)
+			piece_deselect()
 		else:
-			select_piece(board_matrix[coords.x][coords.y])
+			piece_select(board_matrix[coords.x][coords.y])
+			set_highlight(true)
 			print("current_piece: ", current_piece)
 			print("current_piece moves: ", current_piece_moves)
 			
@@ -58,15 +61,25 @@ func move_current_piece(coords):
 		current_piece_moves.erase(coords)
 		for unused in current_piece_moves:
 			destroy_tile(unused)
-		current_piece_moves = []
 		
 		board_matrix[current_piece.tile.x][current_piece.tile.y] = null
 		board_matrix[coords.x][coords.y] = current_piece
 		current_piece.set_tile(coords, Tilemap.map_to_local(coords))
 		
-func select_piece(piece):
+func piece_select(piece):
+	if !piece: return piece_deselect()
+	
 	current_piece = piece
 	current_piece_moves = legal_moves(piece)
+	
+func piece_deselect():
+	current_piece_moves = []
+	current_piece = null
+	
+func set_highlight(do_highlight):
+	for tile in current_piece_moves:
+		if do_highlight: Tilemap.set_cell(1, tile, 0, Vector2i(10, 10))
+		else: Tilemap.erase_cell(1, tile)
 	
 ### GET LEGAL MOVES ###
 
@@ -80,8 +93,6 @@ func filter_invalid_moves(moves):
 	return filter
 
 func legal_moves(piece):
-	if !piece: return []
-	
 	var moves = []
 	
 	for move in piece.get_pattern():

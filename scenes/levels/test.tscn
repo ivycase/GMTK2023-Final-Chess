@@ -9,7 +9,15 @@
 [node name="TileMap" type="TileMap" parent="."]
 tile_set = ExtResource("1_oq0wp")
 format = 2
+layer_0/name = "Board"
 layer_0/tile_data = PackedInt32Array(0, 0, 12, 65536, 65536, 12, 1, 65536, 12, 65537, 0, 12, 2, 0, 12, 65538, 65536, 12, 3, 65536, 12, 65539, 0, 12, 131074, 0, 12, 196610, 65536, 12, 131075, 65536, 12, 196611, 0, 12, 131072, 0, 12, 196608, 65536, 12, 131073, 65536, 12, 196609, 0, 12)
+layer_1/name = "Indicator"
+layer_1/enabled = true
+layer_1/modulate = Color(1, 1, 1, 1)
+layer_1/y_sort_enabled = false
+layer_1/y_sort_origin = 0
+layer_1/z_index = 0
+layer_1/tile_data = PackedInt32Array()
 
 [node name="Board" type="Node2D" parent="." node_paths=PackedStringArray("Tilemap")]
 script = ExtResource("3_kg7xb")
