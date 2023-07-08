@@ -5,6 +5,7 @@ extends Node2D
 
 var board_size = Vector2i(4, 4)
 var board_matrix = []
+var destroyed_matrix = []
 
 var current_piece = null
 var current_piece_moves = []
@@ -12,13 +13,17 @@ var current_piece_moves = []
 ### PRIVATE FUNCTIONS ###
 
 func _ready():
-	var row = []
+	var board_row = []
+	var destroyed_row = []
 	for i in board_size.x: 
-		row.append(null)
+		board_row.append(null)
+		destroyed_row.append(false)
 	for j in board_size.y:
-		board_matrix.append(row.duplicate())
+		board_matrix.append(board_row.duplicate())
+		destroyed_matrix.append(destroyed_row.duplicate())
 	
 	add_piece(Global.Type.KING, Global.Team.GREEN, Vector2i(3, 0))
+	add_piece(Global.Type.KING, Global.Team.PURPLE, Vector2i(0, 3))
 	print("current board: ", board_matrix)
 		
 func _input(_event):
@@ -53,21 +58,34 @@ func add_piece(type, team, tile):
 	new_piece.set_tile(tile, Tilemap.map_to_local(tile))
 	board_matrix[tile.x][tile.y] = new_piece
 	
-func destroy_tile(coords):
-	board_matrix[coords.x][coords.y] = null
+func remove_piece(tile):
+	var piece = board_matrix[tile.x][tile.y]
+	if piece == null: return
+	
+	board_matrix[tile.x][tile.y] = null
+	remove_child(piece)
+	piece.queue_free()
+	
+func destroy_tile(tile):
+	remove_piece(tile)
+	destroyed_matrix[tile.x][tile.y] = true
+	Tilemap.set_cell(1, tile, 0, Vector2i(0, 14))
 			
-func move_current_piece(coords):
-	if coords in current_piece_moves:
-		current_piece_moves.erase(coords)
+func move_current_piece(tile):
+	if tile in current_piece_moves:
+		current_piece_moves.erase(tile)
 		for unused in current_piece_moves:
 			destroy_tile(unused)
 		
-		board_matrix[current_piece.tile.x][current_piece.tile.y] = null
-		board_matrix[coords.x][coords.y] = current_piece
-		current_piece.set_tile(coords, Tilemap.map_to_local(coords))
+		remove_piece(tile)
+		board_matrix[tile.x][tile.y] = current_piece
+		current_piece.set_tile(tile, Tilemap.map_to_local(tile))
+	
+		Global.switch_teams()
 		
 func piece_select(piece):
 	if !piece: return piece_deselect()
+	if piece.team != Global.get_current_team(): return piece_deselect()
 	
 	current_piece = piece
 	current_piece_moves = legal_moves(piece)
@@ -83,12 +101,13 @@ func set_highlight(do_highlight):
 	
 ### GET LEGAL MOVES ###
 
-func filter_invalid_moves(moves):
+func filter_invalid_moves(piece, moves):
 	var filter = moves.duplicate()
 	
 	for move in moves:
 		if !(0 <= move.x && move.x < board_size.x) || !(0 <= move.y && move.y < board_size.y): filter.erase(move) # out of board
-		elif board_matrix[move.x][move.y] != null && board_matrix[move.x][move.y]: filter.erase(move)  # occupied by friendly piece
+		elif board_matrix[move.x][move.y] != null && board_matrix[move.x][move.y].team == piece.team: filter.erase(move) # occupied by friendly piece
+		elif destroyed_matrix[move.x][move.y]: filter.erase(move) #tile is destroyed
 	
 	return filter
 
@@ -98,5 +117,5 @@ func legal_moves(piece):
 	for move in piece.get_pattern():
 		moves.append(move + piece.tile)
 		
-	return filter_invalid_moves(moves)
+	return filter_invalid_moves(piece, moves)
 	
