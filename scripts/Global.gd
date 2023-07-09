@@ -4,6 +4,7 @@ enum Type {PAWN, KNIGHT, BISHOP, ROOK, QUEEN, KING, HOLE}
 enum Team {GREEN, PINK}
 
 var level_order = ["Pawns1", "Pawns2", "Knights1", "Knights2", "Rooks1", "Rooks2", "QueenBattle"]
+var current_level = 0
 
 var current_board = null
 var current_team = Team.PINK
@@ -27,21 +28,38 @@ func remove_piece(piece, team):
 			green_pieces.erase(piece)
 		Team.PINK:
 			pink_pieces.erase(piece)
-	check_win()
 	
 func bounce_valid_pieces():
+	if check_win():
+		green_pieces[0].animate("bounce")
+		pink_pieces[0].animate("bounce")
+		return
+	
+	var at_least_one_move = false
 	for piece in get_team_pieces(current_team):
 		if len(current_board.filter_in_check_moves(piece, current_board.get_legal_moves(piece))) > 0:
 			piece.animate("bounce")
+			at_least_one_move = true
+			
+	if !at_least_one_move: end_game()
 
 func check_win():
-	if len(green_pieces) == 1 && len(pink_pieces) == 1:
-		print("win!")
+	return len(green_pieces) == 1 && len(pink_pieces) == 1
 
 func switch_teams():
 	current_team = get_next_team(current_team)
+	if (current_board.in_check(current_team)):
+		UI.display_message("!! king is in check !!")
+	else:
+		UI.clear_message()
+		
 	UI.bg_color_shift(current_team == Team.GREEN)
 	bounce_valid_pieces()
+	
+	if check_win():
+		UI.display_message("draw :)")
+		current_level += 1
+		load_level(current_level)
 
 func stop_animations(team):
 	for piece in get_team_pieces(current_team):
@@ -50,8 +68,13 @@ func stop_animations(team):
 func start_game(board):
 	current_team = Team.PINK
 	current_board = board
+	if (current_board.in_check(current_team)):
+		UI.display_message("!! king is in check !!")
 	UI.bg_color_shift(false)
 	bounce_valid_pieces()
+
+func end_game():
+	UI.display_message("no valid moves. press r to restart.")
 
 func get_current_team():
 	return current_team
@@ -80,5 +103,8 @@ func get_all_legal_moves(team, matrix=current_board.board_matrix, destroyed=curr
 		
 	#print("all enemy legal moves: ", moves)
 	return moves
+
+func load_level(level):
+	pass
 	
 	

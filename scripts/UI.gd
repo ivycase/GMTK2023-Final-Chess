@@ -1,6 +1,7 @@
 extends Control
 
 @onready var background = get_node("Background")
+@onready var display = get_node("HUD/GameInfo")
 
 var background_green = Color("81e39f")
 var background_pink = Color("be81e3")
@@ -28,10 +29,18 @@ func _process(delta):
 		var new_direction = current_direction.lerp(opposite_direction, shift_interpolate)
 		background.material.set_shader_parameter("scroll_direction", new_direction)
 	
-
 func bg_color_shift(shift_green):
 	shifting = true
 	target = background_green if shift_green else background_pink
 	opposite_direction = -opposite_direction
 	shift_interpolate = 0
+	
+func display_message(message):
+	#var color = "db5aba" if team == Global.Team.PINK else "76d48f"
+	var color = "e34f4f"
+	var prefix = "[center][color=" + color + "]"
+	display.text = prefix + message
+
+func clear_message():
+	display.text = ""
 	
