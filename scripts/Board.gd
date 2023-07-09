@@ -161,7 +161,9 @@ func set_highlight(do_highlight):
 ### GET LEGAL MOVES ###
 
 func in_check(team, matrix=board_matrix, destroyed=destroyed_matrix):
-	for move in Global.get_all_legal_moves(Global.get_next_team(team), matrix, destroyed):
+	var enemy_moves = Global.get_all_legal_moves(Global.get_next_team(team), matrix, destroyed)
+	if enemy_moves == null: return false
+	for move in enemy_moves:
 		#print("checked move: ", move)
 		var piece = matrix[move.y][move.x]
 		if piece != null && piece.type == Global.Type.KING && piece.team == team: return true

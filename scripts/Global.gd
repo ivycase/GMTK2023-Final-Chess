@@ -8,6 +8,7 @@ var current_level = 0
 var last_level = -1
 
 var already_there_honey = false
+var loading_new_level = false
 
 var current_board = null
 var current_team = Team.PINK
@@ -19,11 +20,16 @@ func _ready():
 	Audio.play("jalapeno_jungle.mp3", "Music", true, true)
 
 func _input(_event):
+	if loading_new_level: return
+	
 	if Input.is_action_just_pressed("restart"):
 		Audio.play("reverse.wav")
-		load_level(current_level)
+		call_deferred("load_level", current_level)
+		loading_new_level = true
 
 func add_piece(piece, team):
+	if loading_new_level: return
+	
 	match team:
 		Team.GREEN:
 			green_pieces.append(piece)
@@ -31,6 +37,8 @@ func add_piece(piece, team):
 			pink_pieces.append(piece)
 
 func remove_piece(piece, team):
+	if loading_new_level: return
+	
 	match team:
 		Team.GREEN:
 			green_pieces.erase(piece)
@@ -38,6 +46,8 @@ func remove_piece(piece, team):
 			pink_pieces.erase(piece)
 	
 func bounce_valid_pieces():
+	if loading_new_level: return
+	
 	if check_win():
 		green_pieces[0].animate("bounce")
 		pink_pieces[0].animate("bounce")
@@ -45,16 +55,21 @@ func bounce_valid_pieces():
 	
 	var at_least_one_move = false
 	for piece in get_team_pieces(current_team):
-		if len(current_board.filter_in_check_moves(piece, current_board.get_legal_moves(piece))) > 0:
+		var all_possible_moves = current_board.filter_in_check_moves(piece, current_board.get_legal_moves(piece))
+		if all_possible_moves != null && len(all_possible_moves) > 0:
 			piece.animate("bounce")
 			at_least_one_move = true
 			
 	if !at_least_one_move: end_game()
 
 func check_win():
+	if loading_new_level: return
+	
 	return len(green_pieces) == 1 && len(pink_pieces) == 1
 
 func switch_teams():
+	if loading_new_level: return
+	
 	current_team = get_next_team(current_team)
 	if (current_board.in_check(current_team)):
 		UI.display_message("!! king is in check !!")
@@ -70,14 +85,19 @@ func switch_teams():
 		current_level += 1
 		UI.display_message("draw :)")
 		UI.close_curtains()
+		loading_new_level = true
 		await UI.curtains_closed
-		load_level(current_level)
+		call_deferred("load_level", current_level)
 
 func stop_animations(team):
+	if loading_new_level: return
+	
 	for piece in get_team_pieces(current_team):
 		piece.stop_animate()
 
 func start_game(board):
+	if loading_new_level: return
+	
 	current_team = Team.PINK
 	current_board = board
 	UI = get_node("/root/Level/UI")
@@ -90,13 +110,19 @@ func start_game(board):
 	bounce_valid_pieces()
 
 func end_game():
+	if loading_new_level: return
+	
 	Audio.play("failure.wav")
 	UI.display_message("no valid moves. press r to restart.")
 
 func get_current_team():
+	if loading_new_level: return
+	
 	return current_team
 	
 func get_next_team(team):
+	if loading_new_level: return
+	
 	match team:
 		Team.GREEN:
 			return Team.PINK
@@ -104,6 +130,8 @@ func get_next_team(team):
 			return Team.GREEN
 
 func get_team_pieces(team):
+	if loading_new_level: return
+	
 	match team:
 		Team.GREEN:
 			return green_pieces
@@ -111,10 +139,13 @@ func get_team_pieces(team):
 			return pink_pieces
 
 func get_all_legal_moves(team, matrix=current_board.board_matrix, destroyed=current_board.destroyed_matrix):
+	if loading_new_level: return
+	
 	var moves = []
 	var pieces = get_team_pieces(team)
 			
 	for piece in pieces:
+		if piece == null: continue
 		if matrix[piece.tile.y][piece.tile.x] == piece:
 			moves.append_array(current_board.get_legal_moves(piece, matrix, destroyed))
 		
@@ -133,5 +164,6 @@ func load_level(level_index):
 		already_there_honey = true
 		Audio.clear_persistent()
 		Audio.play("funky_fortress.mp3", "Music", true, true)
+	loading_new_level = false
 	
 	
