@@ -8,6 +8,7 @@ signal curtains_closed
 @onready var curtain = get_node("HUD/Curtain")
 
 @export_multiline var tutorial_text = ""
+@export var finale = false
 
 var background_green = Color("81e39f")
 var background_pink = Color("be81e3")
@@ -19,6 +20,10 @@ var shift_interpolate = 0
 var speed = 0.05
 
 func _ready():
+	if finale: 
+		open_curtains()
+		display_message("The End!")
+		
 	tutorial.text = tutorial_text
 	curtain.show()
 	randomize()

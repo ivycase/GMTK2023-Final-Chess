@@ -3,9 +3,11 @@ extends Node
 enum Type {PAWN, KNIGHT, BISHOP, ROOK, QUEEN, KING, HOLE}
 enum Team {GREEN, PINK}
 
-var level_order = ["Pawns1", "Pawns2", "Knights1", "Knights2", "Rooks1", "Rooks2", "QueenBattle"]
+var level_order = ["Pawns1", "Pawns2", "Knights1", "Knights2", "Rooks1", "Rooks2", "QueenBattle", "Finale"]
 var current_level = 0
 var last_level = -1
+
+var already_there_honey = false
 
 var current_board = null
 var current_team = Team.PINK
@@ -127,5 +129,9 @@ func load_level(level_index):
 	UI = null
 	Audio.clear()
 	get_tree().change_scene_to_file("res://scenes/levels/{0}.tscn".format([level_order[level_index]]))
+	if !already_there_honey && level_order[level_index] == "QueenBattle":
+		already_there_honey = true
+		Audio.clear_persistent()
+		Audio.play("funky_fortress.mp3", "Music", true, true)
 	
 	
