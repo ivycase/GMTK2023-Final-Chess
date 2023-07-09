@@ -16,6 +16,7 @@
 position = Vector2(72, 80)
 
 [node name="UI" parent="." instance=ExtResource("1_fksfa")]
+tutorial_text = "[center][color=260c1a]Knights have a unique attack pattern and can cross gaps."
 
 [node name="Board" type="Node2D" parent="." node_paths=PackedStringArray("Tilemap", "Prototype")]
 script = ExtResource("2_l0we1")

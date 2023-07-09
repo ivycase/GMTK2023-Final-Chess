@@ -4,7 +4,10 @@ signal curtains_closed
 
 @onready var background = get_node("Background")
 @onready var display = get_node("HUD/GameInfo")
+@onready var tutorial = get_node("HUD/Tutorial")
 @onready var curtain = get_node("HUD/Curtain")
+
+@export_multiline var tutorial_text = ""
 
 var background_green = Color("81e39f")
 var background_pink = Color("be81e3")
@@ -16,6 +19,8 @@ var shift_interpolate = 0
 var speed = 0.05
 
 func _ready():
+	tutorial.text = tutorial_text
+	curtain.show()
 	randomize()
 	background.position.x -= background.size.x / randf_range(2, 5)
 	background.position.y -= background.size.y / randf_range(2, 5)
@@ -50,8 +55,8 @@ func open_curtains(skip_tween=false):
 	
 func close_curtains():
 	var tween = create_tween().set_parallel(true)
-	tween.tween_property(curtain.get_node("CurtainLeft"), "position", Vector2(104, 0), 1).set_trans(Tween.TRANS_BOUNCE).set_ease(Tween.EASE_OUT).set_delay(1)
-	tween.tween_property(curtain.get_node("CurtainRight"), "position", Vector2(192, 0), 1).set_trans(Tween.TRANS_BOUNCE).set_ease(Tween.EASE_OUT).set_delay(1)
+	tween.tween_property(curtain.get_node("CurtainLeft"), "position", Vector2(104, 0), 1).set_trans(Tween.TRANS_BOUNCE).set_ease(Tween.EASE_OUT).set_delay(2)
+	tween.tween_property(curtain.get_node("CurtainRight"), "position", Vector2(192, 0), 1).set_trans(Tween.TRANS_BOUNCE).set_ease(Tween.EASE_OUT).set_delay(2)
 	await tween.finished
 	curtains_closed.emit()
 	

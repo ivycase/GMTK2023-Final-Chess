@@ -79,7 +79,21 @@ libraries = {
 "": SubResource("AnimationLibrary_y35ey")
 }
 
+[node name="Tutorial" type="RichTextLabel" parent="HUD"]
+texture_filter = 1
+offset_left = 8.0
+offset_top = 8.0
+offset_right = 184.0
+offset_bottom = 120.0
+theme_override_colors/font_outline_color = Color(0.14902, 0.0470588, 0.101961, 1)
+theme_override_constants/outline_size = 2
+theme_override_fonts/normal_font = ExtResource("4_0y4am")
+theme_override_font_sizes/normal_font_size = 10
+bbcode_enabled = true
+scroll_active = false
+
 [node name="Curtain" type="Control" parent="HUD"]
+visible = false
 layout_mode = 3
 anchors_preset = 0
 offset_right = 40.0

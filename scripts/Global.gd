@@ -5,7 +5,7 @@ enum Team {GREEN, PINK}
 
 var level_order = ["Pawns1", "Pawns2", "Knights1", "Knights2", "Rooks1", "Rooks2", "QueenBattle"]
 var current_level = 0
-var last_level = 0
+var last_level = -1
 
 var current_board = null
 var current_team = Team.PINK
@@ -79,6 +79,7 @@ func start_game(board):
 	current_team = Team.PINK
 	current_board = board
 	UI = get_node("/root/Level/UI")
+	if current_level == last_level: UI.tutorial.text = ""
 	UI.open_curtains(current_level == last_level)
 	last_level = current_level
 	if current_board.in_check(current_team):

@@ -21,6 +21,7 @@ offset_left = -48.0
 offset_top = -96.0
 offset_right = -48.0
 offset_bottom = -96.0
+tutorial_text = "[center][color=260c1a]Rooks threaten many tiles, but they cannot cross gaps."
 
 [node name="Board" type="Node2D" parent="." node_paths=PackedStringArray("Tilemap", "Prototype")]
 script = ExtResource("2_6wjwt")

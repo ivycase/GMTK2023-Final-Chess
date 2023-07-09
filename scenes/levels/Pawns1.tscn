@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://dycalchbaye3m"]
+[gd_scene load_steps=12 format=3 uid="uid://dycalchbaye3m"]
 
 [ext_resource type="PackedScene" uid="uid://7pl33ust4wmg" path="res://scenes/ui.tscn" id="1_uuiki"]
 [ext_resource type="Script" path="res://scripts/Board.gd" id="2_1qw7h"]
@@ -10,6 +10,7 @@
 [ext_resource type="PackedScene" uid="uid://5tbrxlda5kan" path="res://scenes/pieces/green/pawn.tscn" id="8_kux7f"]
 [ext_resource type="PackedScene" uid="uid://bbrrv357hyfoa" path="res://scenes/pieces/pink/king.tscn" id="9_47ivo"]
 [ext_resource type="PackedScene" uid="uid://df55k5fv1rde4" path="res://scenes/pieces/green/king.tscn" id="10_spyc5"]
+[ext_resource type="PackedScene" uid="uid://baj8p0pjd4wu" path="res://scenes/pieces/Hole.tscn" id="11_stuol"]
 
 [node name="Level" type="Node2D"]
 position = Vector2(56, 96)
@@ -19,6 +20,9 @@ offset_left = -56.0
 offset_top = -96.0
 offset_right = -56.0
 offset_bottom = -96.0
+tutorial_text = "[center][color=260c1a]Both kings must work together to destroy all other pieces
+
+Moves you do not take leave destruction in their wake"
 
 [node name="Board" type="Node2D" parent="." node_paths=PackedStringArray("Tilemap", "Prototype")]
 script = ExtResource("2_1qw7h")
@@ -32,7 +36,7 @@ material = ExtResource("4_mb4b5")
 tile_set = ExtResource("5_atf5j")
 format = 2
 layer_0/name = "Board"
-layer_0/tile_data = PackedInt32Array(0, 65536, 4, 65537, 65536, 4, 2, 65536, 4, 65538, 131072, 4, 1, 131072, 4, 65536, 131072, 4, 65539, 0, 3, 4, 0, 4, 3, 196608, 4, 65540, 131072, 3, 131073, 0, 5, 131074, 131072, 5, 131075, 0, 5, 131076, 131072, 5, 131072, 131072, 5)
+layer_0/tile_data = PackedInt32Array(0, 65536, 4, 65537, 65536, 4, 2, 65536, 4, 65538, 131072, 4, 1, 131072, 4, 65536, 131072, 4, 65539, 0, 3, 3, 196608, 4, 65540, 131072, 3, 131073, 0, 5, 131074, 131072, 5, 131075, 0, 5, 131076, 131072, 5, 131072, 131072, 5)
 layer_1/name = "Indicator"
 layer_1/enabled = true
 layer_1/modulate = Color(1, 1, 1, 1)
@@ -43,6 +47,9 @@ layer_1/tile_data = PackedInt32Array()
 script = ExtResource("6_62sdp")
 
 [node name="Prototype" type="Node2D" parent="."]
+
+[node name="Hole" parent="Prototype" instance=ExtResource("11_stuol")]
+position = Vector2(72, 8)
 
 [node name="Pawn2" parent="Prototype" instance=ExtResource("7_c3u0u")]
 position = Vector2(40, 24)
