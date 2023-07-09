@@ -26,6 +26,11 @@ func remove_piece(piece, team):
 		Team.PINK:
 			pink_pieces.erase(piece)
 	check_win()
+	
+func bounce_valid_pieces():
+	for piece in get_team_pieces(current_team):
+		if len(current_board.filter_in_check_moves(piece, current_board.get_legal_moves(piece))) > 0:
+			piece.animate("bounce")
 
 func check_win():
 	if len(green_pieces) == 1 && len(pink_pieces) == 1:
@@ -34,8 +39,7 @@ func check_win():
 func switch_teams():
 	current_team = get_next_team(current_team)
 	UI.bg_color_shift(current_team == Team.PINK)
-	for piece in get_team_pieces(current_team):
-		piece.animate("bounce")
+	bounce_valid_pieces()
 
 func stop_animations(team):
 	for piece in get_team_pieces(current_team):
@@ -45,9 +49,7 @@ func start_game(board):
 	current_team = Team.PINK
 	current_board = board
 	UI.bg_color_shift(false)
-	for piece in get_team_pieces(current_team):
-		piece.animate("bounce")
-	
+	bounce_valid_pieces()
 
 func get_current_team():
 	return current_team

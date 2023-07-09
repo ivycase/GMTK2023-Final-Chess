@@ -51,7 +51,6 @@ func _input(_event):
 		#print("clicked tile: ", coords)
 		
 		if !is_in_board(coords): # not inside board
-			current_piece = null
 			set_highlight(false)
 			piece_deselect()
 			return
@@ -136,6 +135,9 @@ func piece_select(piece):
 	piece.animate("hover", 0.8)
 	
 func piece_deselect():
+	if current_piece:
+		Global.stop_animations(current_piece.team)
+		Global.bounce_valid_pieces()
 	current_piece_moves = []
 	current_piece = null
 	
