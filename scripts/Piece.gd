@@ -53,9 +53,16 @@ func get_pattern():
 func get_pawn_pattern():
 	match team:
 		Global.Team.GREEN:
-			return [Vector2i(0, 1)]
+			return [Vector2i(-1, 0)]
 		Global.Team.PINK:
-			return [Vector2i(0, -1)]
+			return [Vector2i(1, 0)]
+
+func get_pawn_captures():
+	match team:
+		Global.Team.GREEN:
+			return [Vector2i(-1, -1), Vector2i(-1, 1)]
+		Global.Team.PINK:
+			return [Vector2i(1, -1), Vector2i(1, 1)]
 			
 func get_bishop_pattern():
 	return [Vector2i(1, 1),  Vector2i(-1, 1), Vector2i(1, -1),  Vector2i(-1, -1)]

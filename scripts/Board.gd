@@ -194,12 +194,9 @@ func get_sliding_moves(piece, matrix=board_matrix, destroyed=destroyed_matrix):
 	return moves
 	
 func get_pawn_valid_moves(piece, matrix=board_matrix, destroyed=destroyed_matrix):
-	var captures
-	match piece.team:
-		Global.Team.GREEN:
-			captures = [Vector2i(1, 1) + piece.tile, Vector2i(-1, 1) + piece.tile]
-		Global.Team.PINK:
-			captures = [Vector2i(1, -1) + piece.tile, Vector2i(-1, -1) + piece.tile]
+	var captures = []
+	for capture in piece.get_pawn_captures():
+			captures.append(capture + piece.tile)
 	
 	
 	var filter = captures.duplicate()
