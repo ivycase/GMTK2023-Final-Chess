@@ -22,10 +22,12 @@ func play(filename, bus="Master", looping=false, persistent=false):
 
 func clear():
 	while len(audio_sources) > 0:
-		audio_sources[0].queue_free()
-		audio_sources.remove(0)
+		var source = audio_sources[0]
+		if source.playing: await source.finished
+		source.queue_free()
+		if len(audio_sources) > 0: audio_sources.remove_at(0)
 		
 func clear_persistent():
 	while len(persistent_sources) > 0:
 		persistent_sources[0].queue_free()
-		persistent_sources.remove(0)
+		persistent_sources.remove_at(0)

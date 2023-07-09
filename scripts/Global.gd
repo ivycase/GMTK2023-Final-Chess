@@ -17,6 +17,7 @@ func _ready():
 
 func _input(_event):
 	if Input.is_action_just_pressed("restart"):
+		Audio.play("reverse.wav")
 		load_level(current_level)
 
 func add_piece(piece, team):
@@ -57,10 +58,12 @@ func switch_teams():
 	else:
 		UI.clear_message()
 		
+	Audio.play("reverse.wav")
 	UI.bg_color_shift(current_team == Team.GREEN)
 	bounce_valid_pieces()
 	
 	if check_win():
+		Audio.play("success.wav")
 		UI.display_message("draw :)")
 		current_level += 1
 		load_level(current_level)
@@ -79,6 +82,7 @@ func start_game(board):
 	bounce_valid_pieces()
 
 func end_game():
+	Audio.play("failure.wav")
 	UI.display_message("no valid moves. press r to restart.")
 
 func get_current_team():

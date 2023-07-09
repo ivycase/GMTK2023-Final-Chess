@@ -25,7 +25,7 @@ func _ready():
 		board_matrix.append(board_row.duplicate())
 		destroyed_matrix.append(destroyed_row.duplicate())
 	
-	print(board_matrix)
+	#print(board_matrix)
 		
 	for piece in Prototype.get_children():
 		var tile = Tilemap.local_to_map(piece.position)
@@ -112,8 +112,11 @@ func is_in_board(coords):
 func move_current_piece(move):
 	if move in current_piece_moves:
 		current_piece_moves.erase(move)
+		if len(current_piece_moves) > 0: Audio.play("explode.wav")
 		for unused in current_piece_moves:
 			destroy_tile(unused)
+			
+		Audio.play("move.wav")
 		
 		remove_piece(move)
 		board_matrix[current_piece.tile.y][current_piece.tile.x] = null
@@ -126,7 +129,7 @@ func move_current_piece(move):
 		
 		Global.switch_teams()
 		Tilemap.swap_colors()
-		print(Global.current_team, " turn!")
+		#print(Global.current_team, " turn!")
 		
 func piece_select(piece):
 	if !piece: return piece_deselect()
@@ -135,6 +138,8 @@ func piece_select(piece):
 	var moves = filter_in_check_moves(piece, get_legal_moves(piece))
 	if len(moves) == 0: return piece_deselect()
 	
+	Audio.play("plop.wav")
+	
 	current_piece = piece
 	current_piece_moves = moves
 	Global.stop_animations(piece.team)
@@ -142,6 +147,7 @@ func piece_select(piece):
 	
 func piece_deselect():
 	if current_piece:
+		Audio.play("unplop.wav")
 		Global.stop_animations(current_piece.team)
 		Global.bounce_valid_pieces()
 	current_piece_moves = []
