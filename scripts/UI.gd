@@ -9,7 +9,7 @@ var shifting = false
 var target = background_pink
 var opposite_direction = Vector2(-1, 0)
 var shift_interpolate = 0
-var speed = 0.1
+var speed = 0.05
 
 func _ready():
 	randomize()
@@ -29,9 +29,9 @@ func _process(delta):
 		background.material.set_shader_parameter("scroll_direction", new_direction)
 	
 
-func bg_color_shift():
+func bg_color_shift(shift_green):
 	shifting = true
-	target = background_green if target == background_pink else background_pink
+	target = background_green if shift_green else background_pink
 	opposite_direction = -opposite_direction
 	shift_interpolate = 0
 	

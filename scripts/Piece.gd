@@ -1,5 +1,6 @@
 extends Node2D
 
+@onready var anim = get_node("AnimationPlayer")
 @onready var sprite = get_node("Sprite")
 @onready var green_pieces = [preload("res://sprites/pieces/green/pawn.png"), 
 							 preload("res://sprites/pieces/black_knight.png"), 
@@ -30,6 +31,12 @@ func _ready():
 			sprite.texture = pink_pieces[type]
 			
 	sliding = (type == Global.Type.BISHOP || type == Global.Type.ROOK || type == Global.Type.QUEEN)
+	
+func animate(name, speed=1):
+	anim.play(name, -1, speed)
+
+func stop_animate():
+	anim.stop()
 
 func set_tile(tile_coords, pos_coords):
 	tile = tile_coords

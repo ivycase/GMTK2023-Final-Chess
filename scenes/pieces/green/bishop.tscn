@@ -1,7 +1,8 @@
-[gd_scene load_steps=3 format=3 uid="uid://bk1avewjkxkld"]
+[gd_scene load_steps=4 format=3 uid="uid://bk1avewjkxkld"]
 
 [ext_resource type="Script" path="res://scripts/Piece.gd" id="1_hbt43"]
 [ext_resource type="Texture2D" uid="uid://cuxkophby1hti" path="res://sprites/pieces/black_bishop.png" id="2_ews12"]
+[ext_resource type="PackedScene" uid="uid://7mw8kfg7ecrx" path="res://animations/piece_anim.tscn" id="3_j1mks"]
 
 [node name="Bishop" type="Node2D"]
 script = ExtResource("1_hbt43")
@@ -9,3 +10,5 @@ type = 2
 
 [node name="Sprite" type="Sprite2D" parent="."]
 texture = ExtResource("2_ews12")
+
+[node name="AnimationPlayer" parent="." instance=ExtResource("3_j1mks")]

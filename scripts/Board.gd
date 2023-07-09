@@ -38,6 +38,8 @@ func _ready():
 		
 		piece.set_tile(tile, piece.position)
 		board_matrix[tile.x][tile.y] = piece
+	
+	Global.start_game(self)
 		
 		
 	#print("current board: ", board_matrix)
@@ -115,6 +117,7 @@ func move_current_piece(move):
 		board_matrix[current_piece.tile.x][current_piece.tile.y] = null
 		board_matrix[move.x][move.y] = current_piece
 		current_piece.set_tile(move, Tilemap.map_to_local(move))
+		current_piece.stop_animate()
 	
 		Global.switch_teams()
 		Tilemap.swap_colors()
@@ -124,8 +127,13 @@ func piece_select(piece):
 	if !piece: return piece_deselect()
 	if piece.team != Global.get_current_team(): return piece_deselect()
 	
+	var moves = filter_in_check_moves(piece, get_legal_moves(piece))
+	if len(moves) == 0: return piece_deselect()
+	
 	current_piece = piece
-	current_piece_moves = filter_in_check_moves(piece, get_legal_moves(piece))
+	current_piece_moves = moves
+	Global.stop_animations(piece.team)
+	piece.animate("hover", 0.8)
 	
 func piece_deselect():
 	current_piece_moves = []

@@ -1,10 +1,13 @@
-[gd_scene load_steps=3 format=3 uid="uid://5tbrxlda5kan"]
+[gd_scene load_steps=4 format=3 uid="uid://5tbrxlda5kan"]
 
 [ext_resource type="Script" path="res://scripts/Piece.gd" id="1_ga36o"]
 [ext_resource type="Texture2D" uid="uid://dv5iof85ulqv5" path="res://sprites/pieces/green/pawn.png" id="2_m6wdk"]
+[ext_resource type="PackedScene" uid="uid://7mw8kfg7ecrx" path="res://animations/piece_anim.tscn" id="3_px3kg"]
 
 [node name="Pawn" type="Node2D"]
 script = ExtResource("1_ga36o")
 
 [node name="Sprite" type="Sprite2D" parent="."]
 texture = ExtResource("2_m6wdk")
+
+[node name="AnimationPlayer" parent="." instance=ExtResource("3_px3kg")]

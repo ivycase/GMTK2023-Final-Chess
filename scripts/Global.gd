@@ -33,7 +33,21 @@ func check_win():
 
 func switch_teams():
 	current_team = get_next_team(current_team)
-	UI.bg_color_shift()
+	UI.bg_color_shift(current_team == Team.PINK)
+	for piece in get_team_pieces(current_team):
+		piece.animate("bounce")
+
+func stop_animations(team):
+	for piece in get_team_pieces(current_team):
+		piece.stop_animate()
+
+func start_game(board):
+	current_team = Team.PINK
+	current_board = board
+	UI.bg_color_shift(false)
+	for piece in get_team_pieces(current_team):
+		piece.animate("bounce")
+	
 
 func get_current_team():
 	return current_team
@@ -45,15 +59,16 @@ func get_next_team(team):
 		Team.PINK:
 			return Team.GREEN
 
-func get_all_legal_moves(team, matrix=current_board.board_matrix, destroyed=current_board.destroyed_matrix):
-	var moves = []
-	var pieces
-	
+func get_team_pieces(team):
 	match team:
 		Team.GREEN:
-			pieces = green_pieces
+			return green_pieces
 		Team.PINK:
-			pieces = pink_pieces
+			return pink_pieces
+
+func get_all_legal_moves(team, matrix=current_board.board_matrix, destroyed=current_board.destroyed_matrix):
+	var moves = []
+	var pieces = get_team_pieces(team)
 			
 	for piece in pieces:
 		if matrix[piece.tile.x][piece.tile.y] == piece:

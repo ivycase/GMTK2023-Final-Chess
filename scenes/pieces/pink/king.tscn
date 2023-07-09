@@ -1,7 +1,8 @@
-[gd_scene load_steps=3 format=3 uid="uid://bbrrv357hyfoa"]
+[gd_scene load_steps=4 format=3 uid="uid://bbrrv357hyfoa"]
 
 [ext_resource type="Script" path="res://scripts/Piece.gd" id="1_x1v0e"]
 [ext_resource type="Texture2D" uid="uid://bbyu4nk8rmfm4" path="res://sprites/pieces/pink/king.png" id="2_qk8ob"]
+[ext_resource type="PackedScene" uid="uid://7mw8kfg7ecrx" path="res://animations/piece_anim.tscn" id="3_3g6tw"]
 
 [node name="King" type="Node2D"]
 script = ExtResource("1_x1v0e")
@@ -10,3 +11,5 @@ team = 1
 
 [node name="Sprite" type="Sprite2D" parent="."]
 texture = ExtResource("2_qk8ob")
+
+[node name="AnimationPlayer" parent="." instance=ExtResource("3_3g6tw")]
