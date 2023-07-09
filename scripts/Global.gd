@@ -3,6 +3,8 @@ extends Node
 enum Type {PAWN, KNIGHT, BISHOP, ROOK, QUEEN, KING, HOLE}
 enum Team {GREEN, PINK}
 
+var level_order = ["Pawns1", "Pawns2", "Knights1", "Knights2", "Rooks1", "Rooks2", "QueenBattle"]
+
 var current_board = null
 var current_team = Team.PINK
 var green_pieces = []

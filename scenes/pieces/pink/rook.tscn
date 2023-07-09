@@ -1,7 +1,7 @@
 [gd_scene load_steps=4 format=3 uid="uid://dv5ia2gvwtqj6"]
 
 [ext_resource type="Script" path="res://scripts/Piece.gd" id="1_3jic5"]
-[ext_resource type="Texture2D" uid="uid://dqk0surem65ls" path="res://sprites/pieces/black_rook.png" id="2_vn4b1"]
+[ext_resource type="Texture2D" uid="uid://bhpuqyohxn4ri" path="res://sprites/pieces/white_rook.png" id="2_wecoj"]
 [ext_resource type="PackedScene" uid="uid://7mw8kfg7ecrx" path="res://animations/piece_anim.tscn" id="3_qugad"]
 
 [node name="Rook" type="Node2D"]
@@ -10,6 +10,6 @@ type = 3
 team = 1
 
 [node name="Sprite" type="Sprite2D" parent="."]
-texture = ExtResource("2_vn4b1")
+texture = ExtResource("2_wecoj")
 
 [node name="AnimationPlayer" parent="." instance=ExtResource("3_qugad")]
