@@ -1,7 +1,10 @@
 extends Control
 
+signal curtains_closed
+
 @onready var background = get_node("Background")
 @onready var display = get_node("HUD/GameInfo")
+@onready var curtain = get_node("HUD/Curtain")
 
 var background_green = Color("81e39f")
 var background_pink = Color("be81e3")
@@ -34,6 +37,23 @@ func bg_color_shift(shift_green):
 	target = background_green if shift_green else background_pink
 	opposite_direction = -opposite_direction
 	shift_interpolate = 0
+	
+func open_curtains(skip_tween=false):
+	if skip_tween:
+		curtain.get_node("CurtainLeft").position = Vector2(0, 0)
+		curtain.get_node("CurtainRight").position = Vector2(296, 0)
+		return
+	
+	var tween = create_tween().set_parallel(true)
+	tween.tween_property(curtain.get_node("CurtainLeft"), "position", Vector2(0, 0), 1).set_trans(Tween.TRANS_EXPO).set_ease(Tween.EASE_IN)
+	tween.tween_property(curtain.get_node("CurtainRight"), "position", Vector2(296, 0), 1).set_trans(Tween.TRANS_EXPO).set_ease(Tween.EASE_IN)
+	
+func close_curtains():
+	var tween = create_tween().set_parallel(true)
+	tween.tween_property(curtain.get_node("CurtainLeft"), "position", Vector2(104, 0), 1).set_trans(Tween.TRANS_BOUNCE).set_ease(Tween.EASE_OUT).set_delay(1)
+	tween.tween_property(curtain.get_node("CurtainRight"), "position", Vector2(192, 0), 1).set_trans(Tween.TRANS_BOUNCE).set_ease(Tween.EASE_OUT).set_delay(1)
+	await tween.finished
+	curtains_closed.emit()
 	
 func display_message(message):
 	#var color = "db5aba" if team == Global.Team.PINK else "76d48f"

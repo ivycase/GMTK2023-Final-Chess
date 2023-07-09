@@ -5,6 +5,21 @@
 [ext_resource type="Texture2D" uid="uid://dhe2mg2tai2xk" path="res://sprites/chess-background.png" id="3_yqum6"]
 [ext_resource type="FontFile" uid="uid://co61xau63ltnl" path="res://fonts/slkscr.ttf" id="4_0y4am"]
 
+[sub_resource type="Animation" id="Animation_06gf3"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+
 [sub_resource type="Animation" id="Animation_3xvat"]
 resource_name = "slow_flash"
 loop_mode = 1
@@ -19,21 +34,6 @@ tracks/0/keys = {
 "transitions": PackedFloat32Array(1, 1),
 "update": 1,
 "values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
-}
-
-[sub_resource type="Animation" id="Animation_06gf3"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath(".:modulate")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Color(1, 1, 1, 1)]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_y35ey"]
@@ -78,3 +78,23 @@ autoplay = "slow_flash"
 libraries = {
 "": SubResource("AnimationLibrary_y35ey")
 }
+
+[node name="Curtain" type="Control" parent="HUD"]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="CurtainLeft" type="ColorRect" parent="HUD/Curtain"]
+offset_left = 104.0
+offset_right = 144.0
+offset_bottom = 40.0
+scale = Vector2(-2.60744, 4.79368)
+color = Color(0.14902, 0.0470588, 0.101961, 1)
+
+[node name="CurtainRight" type="ColorRect" parent="HUD/Curtain"]
+offset_left = 192.0
+offset_right = 232.0
+offset_bottom = 40.0
+scale = Vector2(-2.60744, 4.79368)
+color = Color(0.14902, 0.0470588, 0.101961, 1)

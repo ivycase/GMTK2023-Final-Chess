@@ -5,6 +5,7 @@ enum Team {GREEN, PINK}
 
 var level_order = ["Pawns1", "Pawns2", "Knights1", "Knights2", "Rooks1", "Rooks2", "QueenBattle"]
 var current_level = 0
+var last_level = 0
 
 var current_board = null
 var current_team = Team.PINK
@@ -64,8 +65,10 @@ func switch_teams():
 	
 	if check_win():
 		Audio.play("success.wav")
-		UI.display_message("draw :)")
 		current_level += 1
+		UI.display_message("draw :)")
+		UI.close_curtains()
+		await UI.curtains_closed
 		load_level(current_level)
 
 func stop_animations(team):
@@ -76,7 +79,9 @@ func start_game(board):
 	current_team = Team.PINK
 	current_board = board
 	UI = get_node("/root/Level/UI")
-	if (current_board.in_check(current_team)):
+	UI.open_curtains(current_level == last_level)
+	last_level = current_level
+	if current_board.in_check(current_team):
 		UI.display_message("!! king is in check !!")
 	UI.bg_color_shift(false)
 	bounce_valid_pieces()
