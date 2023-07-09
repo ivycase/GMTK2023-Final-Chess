@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" path="res://scripts/UI.gd" id="1_ohqno"]
 [ext_resource type="Texture2D" uid="uid://dhe2mg2tai2xk" path="res://sprites/chess-background.png" id="2_vmcp6"]
-[ext_resource type="FontFile" uid="uid://co61xau63ltnl" path="res://fonts/slkscr.ttf" id="3_pp0ir"]
+[ext_resource type="FontFile" uid="uid://plpnksgq5si2" path="res://fonts/m5x7.ttf" id="3_6eo6h"]
 [ext_resource type="Material" uid="uid://chngpu370nm4a" path="res://shaders/swap_colors.tres" id="4_1lrfh"]
 [ext_resource type="Script" path="res://scripts/Piece.gd" id="4_ef2kr"]
 [ext_resource type="Texture2D" uid="uid://bbyu4nk8rmfm4" path="res://sprites/pieces/pink/king.png" id="5_1iaqq"]
@@ -10,7 +10,7 @@
 [ext_resource type="PackedScene" uid="uid://7mw8kfg7ecrx" path="res://animations/piece_anim.tscn" id="6_bq03w"]
 [ext_resource type="Texture2D" uid="uid://bqss6djgr5to8" path="res://sprites/pieces/green/king.png" id="7_d0i2k"]
 
-[sub_resource type="Shader" id="Shader_ffxky"]
+[sub_resource type="Shader" id="Shader_8cwrb"]
 code = "/* 
 Earthbound battle backgrounds shader with scrolling effect and palette cycling like in the original game.
 by @retr0_dev, modified by @absolutelyivy
@@ -41,17 +41,17 @@ void fragment()
 	COLOR = mix(COLOR, color_shift, shift_amount);
 }"
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_av8q1"]
-shader = SubResource("Shader_ffxky")
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_hhusd"]
+shader = SubResource("Shader_8cwrb")
 shader_parameter/amplitude = 0.005
 shader_parameter/frequency = 20.0
 shader_parameter/speed = 1.0
 shader_parameter/amplitude_vertical = 0.0
 shader_parameter/frequency_vertical = 0.0
 shader_parameter/speed_vertical = 0.0
-shader_parameter/scroll_direction = Vector2(0, -1)
+shader_parameter/scroll_direction = Vector2(-1, 0)
 shader_parameter/scrolling_speed = 0.02
-shader_parameter/color_shift = Color(0.443137, 0, 0.596078, 1)
+shader_parameter/color_shift = Color(0.839216, 0, 0.337255, 1)
 shader_parameter/shift_amount = 0.5
 
 [sub_resource type="Animation" id="Animation_06gf3"]
@@ -263,16 +263,18 @@ position = Vector2(72, 80)
 [node name="UI" type="Control" parent="."]
 layout_mode = 3
 anchors_preset = 0
-offset_left = -72.0
-offset_top = -80.0
-offset_right = -72.0
-offset_bottom = -80.0
+offset_left = -160.0
+offset_top = -160.0
+offset_right = -160.0
+offset_bottom = -160.0
 script = ExtResource("1_ohqno")
+tutorial_text = "
+[center][color=260c1a]Thank you for playing!"
 finale = true
 
 [node name="Background" type="TextureRect" parent="UI"]
 texture_filter = 2
-material = SubResource("ShaderMaterial_av8q1")
+material = SubResource("ShaderMaterial_hhusd")
 layout_mode = 0
 offset_right = 1280.0
 offset_bottom = 768.0
@@ -285,11 +287,10 @@ stretch_mode = 1
 [node name="GameInfo" type="RichTextLabel" parent="UI/HUD"]
 texture_filter = 1
 offset_top = 160.0
-offset_right = 768.0
-offset_bottom = 320.0
-scale = Vector2(0.25, 0.25)
-theme_override_fonts/normal_font = ExtResource("3_pp0ir")
-theme_override_font_sizes/normal_font_size = 60
+offset_right = 192.0
+offset_bottom = 192.0
+theme_override_fonts/normal_font = ExtResource("3_6eo6h")
+theme_override_font_sizes/normal_font_size = 16
 bbcode_enabled = true
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="UI/HUD/GameInfo"]
@@ -301,13 +302,10 @@ libraries = {
 [node name="Tutorial" type="RichTextLabel" parent="UI/HUD"]
 texture_filter = 1
 offset_left = 8.0
-offset_top = 8.0
 offset_right = 184.0
-offset_bottom = 120.0
-theme_override_colors/font_outline_color = Color(0.14902, 0.0470588, 0.101961, 1)
-theme_override_constants/outline_size = 2
-theme_override_fonts/normal_font = ExtResource("3_pp0ir")
-theme_override_font_sizes/normal_font_size = 10
+offset_bottom = 72.0
+theme_override_fonts/normal_font = ExtResource("3_6eo6h")
+theme_override_font_sizes/normal_font_size = 16
 bbcode_enabled = true
 scroll_active = false
 

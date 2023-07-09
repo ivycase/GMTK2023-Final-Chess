@@ -22,7 +22,8 @@ offset_left = -72.0
 offset_top = -80.0
 offset_right = -72.0
 offset_bottom = -80.0
-tutorial_text = "[center][color=260c1a]Bow to the Queen."
+tutorial_text = "[center][color=260c1a]
+Bow to the Queen."
 
 [node name="Board" type="Node2D" parent="." node_paths=PackedStringArray("Tilemap", "Prototype")]
 script = ExtResource("2_oi5fj")

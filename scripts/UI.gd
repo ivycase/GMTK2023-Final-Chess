@@ -17,7 +17,7 @@ var shifting = false
 var target = background_green
 var opposite_direction = Vector2(1, 0)
 var shift_interpolate = 0
-var speed = 0.05
+var speed = 0.005
 
 func _ready():
 	if finale: 
