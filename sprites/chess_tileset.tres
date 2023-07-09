@@ -1,6 +1,9 @@
-[gd_resource type="TileSet" load_steps=3 format=3 uid="uid://cgpoupdsra5vy"]
+[gd_resource type="TileSet" load_steps=4 format=3 uid="uid://cgpoupdsra5vy"]
 
 [ext_resource type="Texture2D" uid="uid://c62wl1lvxwvb3" path="res://sprites/chess-tileset.png" id="1_gqdfm"]
+
+[sub_resource type="TileMapPattern" id="TileMapPattern_o4ojb"]
+tile_data = PackedInt32Array(0, 65536, 4, 65536, 131072, 4, 1, 131072, 4, 65537, 65536, 4)
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_4u2jv"]
 texture = ExtResource("1_gqdfm")
@@ -34,3 +37,4 @@ texture = ExtResource("1_gqdfm")
 
 [resource]
 sources/0 = SubResource("TileSetAtlasSource_4u2jv")
+pattern_0 = SubResource("TileMapPattern_o4ojb")

@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="Gmtk 23-final-chess"
-run/main_scene="res://scenes/levels/FullBoard.tscn"
+run/main_scene="res://scenes/levels/experiments/FullBoard.tscn"
 config/features=PackedStringArray("4.1", "Forward Plus")
 config/icon="res://icon.svg"
 

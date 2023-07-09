@@ -24,6 +24,8 @@ func _ready():
 	for j in Board_Size.y:
 		board_matrix.append(board_row.duplicate())
 		destroyed_matrix.append(destroyed_row.duplicate())
+	
+	print(board_matrix)
 		
 	for piece in Prototype.get_children():
 		var tile = Tilemap.local_to_map(piece.position)
@@ -97,7 +99,8 @@ func destroy_tile(tile):
 	if !is_in_board(above_tile) || destroyed_matrix[above_tile.x][above_tile.y]: # if above tile is out of board or destroyed (half-piece)
 		Tilemap.erase_cell(0, tile)
 	else:
-		Tilemap.set_cell(0, tile, 0, Vector2i(0, 5))
+		var type_x = 2 % (above_tile.x + 1)
+		Tilemap.set_cell(0, tile, 0, Vector2i(type_x, 5)) # create half-piece
 	
 	var below_tile = tile + Vector2i(0, 1)
 	if !is_in_board(below_tile) || destroyed_matrix[below_tile.x][below_tile.y]: # if below tile is out of board or destroyed (half-piece)
