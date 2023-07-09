@@ -17,10 +17,6 @@ texture = ExtResource("1_gqdfm")
 1:4/0 = 0
 2:4/0 = 0
 3:4/0 = 0
-0:5/animation_columns = 2
-0:5/animation_frame_0/duration = 1.0
-0:5/animation_frame_1/duration = 1.0
-0:5/0 = 0
 0:6/animation_columns = 2
 0:6/animation_frame_0/duration = 1.0
 0:6/animation_frame_1/duration = 1.0
@@ -34,6 +30,10 @@ texture = ExtResource("1_gqdfm")
 2:6/animation_frame_0/duration = 1.0
 2:6/animation_frame_1/duration = 1.0
 2:6/0 = 0
+0:5/animation_columns = 2
+0:5/animation_frame_0/duration = 1.0
+0:5/animation_frame_1/duration = 1.0
+0:5/0 = 0
 
 [resource]
 sources/0 = SubResource("TileSetAtlasSource_4u2jv")

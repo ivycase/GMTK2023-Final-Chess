@@ -38,7 +38,7 @@ func check_win():
 
 func switch_teams():
 	current_team = get_next_team(current_team)
-	UI.bg_color_shift(current_team == Team.PINK)
+	UI.bg_color_shift(current_team == Team.GREEN)
 	bounce_valid_pieces()
 
 func stop_animations(team):
@@ -73,7 +73,7 @@ func get_all_legal_moves(team, matrix=current_board.board_matrix, destroyed=curr
 	var pieces = get_team_pieces(team)
 			
 	for piece in pieces:
-		if matrix[piece.tile.x][piece.tile.y] == piece:
+		if matrix[piece.tile.y][piece.tile.x] == piece:
 			moves.append_array(current_board.get_legal_moves(piece, matrix, destroyed))
 		
 	#print("all enemy legal moves: ", moves)

@@ -6,8 +6,8 @@ var background_green = Color("81e39f")
 var background_pink = Color("be81e3")
 
 var shifting = false
-var target = background_pink
-var opposite_direction = Vector2(-1, 0)
+var target = background_green
+var opposite_direction = Vector2(1, 0)
 var shift_interpolate = 0
 var speed = 0.05
 

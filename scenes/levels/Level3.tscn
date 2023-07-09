@@ -1,0 +1,74 @@
+[gd_scene load_steps=13 format=3 uid="uid://23x3wtc3ncsy"]
+
+[ext_resource type="PackedScene" uid="uid://7pl33ust4wmg" path="res://scenes/ui.tscn" id="1_btcng"]
+[ext_resource type="Script" path="res://scripts/Board.gd" id="4_hd6vu"]
+[ext_resource type="PackedScene" uid="uid://b7kjbllnicsxh" path="res://scenes/pieces/Piece.tscn" id="5_ii1yv"]
+[ext_resource type="Material" uid="uid://chngpu370nm4a" path="res://shaders/swap_colors.tres" id="6_rifnj"]
+[ext_resource type="TileSet" uid="uid://cgpoupdsra5vy" path="res://sprites/chess_tileset.tres" id="7_oeo48"]
+[ext_resource type="Script" path="res://scripts/BoardTiles.gd" id="8_i5lnh"]
+[ext_resource type="PackedScene" uid="uid://1nhckci2d4ta" path="res://scenes/pieces/pink/pawn.tscn" id="9_2466i"]
+[ext_resource type="PackedScene" uid="uid://5tbrxlda5kan" path="res://scenes/pieces/green/pawn.tscn" id="10_sjogd"]
+[ext_resource type="PackedScene" uid="uid://bbrrv357hyfoa" path="res://scenes/pieces/pink/king.tscn" id="11_8rtjx"]
+[ext_resource type="PackedScene" uid="uid://df55k5fv1rde4" path="res://scenes/pieces/green/king.tscn" id="12_mqwf0"]
+[ext_resource type="PackedScene" uid="uid://d0a3tp88mmuqp" path="res://scenes/pieces/green/rook.tscn" id="13_51tm1"]
+[ext_resource type="PackedScene" uid="uid://baj8p0pjd4wu" path="res://scenes/pieces/Hole.tscn" id="14_vphfu"]
+
+[node name="Level" type="Node2D"]
+position = Vector2(48, 96)
+
+[node name="UI" parent="." instance=ExtResource("1_btcng")]
+offset_left = -48.0
+offset_top = -96.0
+offset_right = -48.0
+offset_bottom = -96.0
+
+[node name="Board" type="Node2D" parent="." node_paths=PackedStringArray("Tilemap", "Prototype")]
+script = ExtResource("4_hd6vu")
+Piece = ExtResource("5_ii1yv")
+Tilemap = NodePath("TileMap")
+Prototype = NodePath("../Prototype")
+Board_Size = Vector2i(6, 2)
+
+[node name="TileMap" type="TileMap" parent="Board"]
+material = ExtResource("6_rifnj")
+tile_set = ExtResource("7_oeo48")
+format = 2
+layer_0/name = "Board"
+layer_0/tile_data = PackedInt32Array(1, 196608, 3, 65538, 196608, 4, 65537, 0, 3, 2, 0, 4, 65539, 0, 3, 131073, 0, 5, 131074, 131072, 5, 131075, 0, 5, 0, 65536, 4, 65536, 196608, 4, 131072, 131072, 5, 65541, 65536, 4, 131077, 0, 5)
+layer_1/name = "Indicator"
+layer_1/enabled = true
+layer_1/modulate = Color(1, 1, 1, 1)
+layer_1/y_sort_enabled = false
+layer_1/y_sort_origin = 0
+layer_1/z_index = 0
+layer_1/tile_data = PackedInt32Array()
+script = ExtResource("8_i5lnh")
+
+[node name="Prototype" type="Node2D" parent="."]
+
+[node name="Pawn3" parent="Prototype" instance=ExtResource("10_sjogd")]
+position = Vector2(40, 24)
+
+[node name="King2" parent="Prototype" instance=ExtResource("11_8rtjx")]
+position = Vector2(8, 24)
+
+[node name="Pawn5" parent="Prototype" instance=ExtResource("9_2466i")]
+position = Vector2(8, 8)
+
+[node name="King" parent="Prototype" instance=ExtResource("12_mqwf0")]
+position = Vector2(88, 24)
+
+[node name="Rook" parent="Prototype" instance=ExtResource("13_51tm1")]
+position = Vector2(56, 24)
+
+[node name="Hole" parent="Prototype" instance=ExtResource("14_vphfu")]
+position = Vector2(72, 24)
+
+[node name="Hole2" parent="Prototype" instance=ExtResource("14_vphfu")]
+position = Vector2(56, 8)
+
+[node name="Hole3" parent="Prototype" instance=ExtResource("14_vphfu")]
+position = Vector2(72, 8)
+
+[node name="Hole4" parent="Prototype" instance=ExtResource("14_vphfu")]
+position = Vector2(88, 8)
