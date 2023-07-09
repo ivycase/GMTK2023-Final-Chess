@@ -12,6 +12,9 @@ var green_pieces = []
 var pink_pieces = []
 var UI = null
 
+func _ready():
+	Audio.play("jalapeno_jungle.mp3", "Music", true, true)
+
 func _input(_event):
 	if Input.is_action_just_pressed("restart"):
 		load_level(current_level)
@@ -112,6 +115,7 @@ func load_level(level_index):
 	green_pieces = []
 	pink_pieces = []
 	UI = null
+	Audio.clear()
 	get_tree().change_scene_to_file("res://scenes/levels/{0}.tscn".format([level_order[level_index]]))
 	
 	
