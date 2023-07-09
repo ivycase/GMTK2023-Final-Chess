@@ -1,7 +1,7 @@
 [gd_scene load_steps=4 format=3 uid="uid://bfi72ip42gggt"]
 
 [ext_resource type="Script" path="res://scripts/Piece.gd" id="1_y6o1m"]
-[ext_resource type="Texture2D" uid="uid://cw3qsiwc5yqj0" path="res://sprites/pieces/white_queen.png" id="2_5r4fe"]
+[ext_resource type="Texture2D" uid="uid://bng3crnkxc0me" path="res://sprites/pieces/pink/queen.png" id="2_rms62"]
 [ext_resource type="PackedScene" uid="uid://7mw8kfg7ecrx" path="res://animations/piece_anim.tscn" id="3_00vnt"]
 
 [node name="Queen" type="Node2D"]
@@ -10,6 +10,6 @@ type = 4
 team = 1
 
 [node name="Sprite" type="Sprite2D" parent="."]
-texture = ExtResource("2_5r4fe")
+texture = ExtResource("2_rms62")
 
 [node name="AnimationPlayer" parent="." instance=ExtResource("3_00vnt")]

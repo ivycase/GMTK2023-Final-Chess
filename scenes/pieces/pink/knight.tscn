@@ -1,7 +1,7 @@
 [gd_scene load_steps=4 format=3 uid="uid://b7od748shgyfy"]
 
 [ext_resource type="Script" path="res://scripts/Piece.gd" id="1_enniy"]
-[ext_resource type="Texture2D" uid="uid://chtexosh1hxg0" path="res://sprites/pieces/white_knight.png" id="2_sep0g"]
+[ext_resource type="Texture2D" uid="uid://coujqaitpn4ni" path="res://sprites/pieces/pink/knight.png" id="2_futgv"]
 [ext_resource type="PackedScene" uid="uid://7mw8kfg7ecrx" path="res://animations/piece_anim.tscn" id="3_ybx0b"]
 
 [node name="Knight" type="Node2D"]
@@ -10,6 +10,6 @@ type = 1
 team = 1
 
 [node name="Sprite" type="Sprite2D" parent="."]
-texture = ExtResource("2_sep0g")
+texture = ExtResource("2_futgv")
 
 [node name="AnimationPlayer" parent="." instance=ExtResource("3_ybx0b")]

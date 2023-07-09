@@ -3,16 +3,16 @@ extends Node2D
 @onready var anim = get_node("AnimationPlayer")
 @onready var sprite = get_node("Sprite")
 @onready var green_pieces = [preload("res://sprites/pieces/green/pawn.png"), 
-							 preload("res://sprites/pieces/black_knight.png"), 
+							 preload("res://sprites/pieces/green/knight.png"), 
 							 preload("res://sprites/pieces/black_bishop.png"),
-							 preload("res://sprites/pieces/black_rook.png"),
-							 preload("res://sprites/pieces/black_queen.png"),
+							 preload("res://sprites/pieces/green/rook.png"),
+							 preload("res://sprites/pieces/green/queen.png"),
 							 preload("res://sprites/pieces/green/king.png")]
 @onready var pink_pieces = [preload("res://sprites/pieces/pink/pawn.png"), 
-							 preload("res://sprites/pieces/white_knight.png"), 
+							 preload("res://sprites/pieces/pink/knight.png"), 
 							 preload("res://sprites/pieces/white_bishop.png"),
-							 preload("res://sprites/pieces/white_rook.png"),
-							 preload("res://sprites/pieces/white_queen.png"),
+							 preload("res://sprites/pieces/pink/rook.png"),
+							 preload("res://sprites/pieces/pink/queen.png"),
 							 preload("res://sprites/pieces/pink/king.png")]
 
 @export var type = Global.Type.PAWN
