@@ -121,6 +121,9 @@ func move_current_piece(move):
 		current_piece.set_tile(move, Tilemap.map_to_local(move))
 		current_piece.stop_animate()
 	
+		current_piece_moves = []
+		current_piece = null
+		
 		Global.switch_teams()
 		Tilemap.swap_colors()
 		print(Global.current_team, " turn!")

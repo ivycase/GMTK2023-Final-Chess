@@ -12,8 +12,9 @@ var green_pieces = []
 var pink_pieces = []
 var UI = null
 
-func _ready():
-	UI = get_node("/root/Level/UI")
+func _input(_event):
+	if Input.is_action_just_pressed("restart"):
+		load_level(current_level)
 
 func add_piece(piece, team):
 	match team:
@@ -68,6 +69,7 @@ func stop_animations(team):
 func start_game(board):
 	current_team = Team.PINK
 	current_board = board
+	UI = get_node("/root/Level/UI")
 	if (current_board.in_check(current_team)):
 		UI.display_message("!! king is in check !!")
 	UI.bg_color_shift(false)
@@ -104,7 +106,12 @@ func get_all_legal_moves(team, matrix=current_board.board_matrix, destroyed=curr
 	#print("all enemy legal moves: ", moves)
 	return moves
 
-func load_level(level):
-	pass
+func load_level(level_index):
+	current_board = null
+	current_team = Team.PINK
+	green_pieces = []
+	pink_pieces = []
+	UI = null
+	get_tree().change_scene_to_file("res://scenes/levels/{0}.tscn".format([level_order[level_index]]))
 	
 	
