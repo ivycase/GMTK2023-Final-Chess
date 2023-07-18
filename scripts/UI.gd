@@ -20,7 +20,7 @@ var shifting = false
 #var opposite_direction = Vector2(1, 0)
 #var opposite_speed = -0.02
 #var shift_interpolate = 0
-var shift_time = 2
+var shift_time = 1
 
 
 var current_color
@@ -74,8 +74,8 @@ func bg_color_shift(shift_green, skip_tween=false):
 		return
 	
 	shift_tween = create_tween().set_parallel(true)
-	shift_tween.tween_property(self, "current_color", new_color, shift_time).set_trans(Tween.TRANS_LINEAR)#.set_ease(Tween.EASE_IN_OUT)
-	shift_tween.tween_property(self, "current_speed", new_speed, shift_time).set_trans(Tween.TRANS_LINEAR)#.set_ease(Tween.EASE_IN_OUT)
+	shift_tween.tween_property(self, "current_color", new_color, shift_time).set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_IN_OUT)
+	shift_tween.tween_property(self, "current_speed", new_speed, shift_time).set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_IN_OUT)
 	await shift_tween.finished
 	print("done")
 	if shift_tween: 
