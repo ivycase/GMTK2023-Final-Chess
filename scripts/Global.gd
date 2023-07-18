@@ -106,7 +106,7 @@ func start_game(board):
 	last_level = current_level
 	if current_board.in_check(current_team):
 		UI.display_message("!! king is in check !!")
-	UI.bg_color_shift(false)
+	UI.bg_color_shift(false, true)
 	bounce_valid_pieces()
 
 func end_game():

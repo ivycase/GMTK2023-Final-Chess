@@ -19,11 +19,13 @@ uniform float scrolling_speed = 0.08;
 uniform vec4 color_shift : source_color;
 uniform float shift_amount = 0.5;
 
+uniform float world_time = 1.0;
+
 void fragment()
 {
 	float diff_x = amplitude * sin((frequency * UV.y) + (speed * TIME));
 	float diff_y = amplitude_vertical * sin((frequency_vertical * UV.y)  + (speed_vertical * TIME));
-	vec2 scroll = scroll_direction * TIME * scrolling_speed;
+	vec2 scroll = scroll_direction * world_time * scrolling_speed;
 	COLOR = texture(TEXTURE, vec2(UV.x + diff_x, UV.y + diff_y) + scroll);
 	COLOR = mix(COLOR, color_shift, shift_amount);
 }
